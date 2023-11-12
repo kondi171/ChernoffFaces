@@ -1,7 +1,7 @@
 <script setup lang="ts">
 </script>
 <template>
-  <section>
+  <section class="interface">
     <div class="configure-box">
       <h2>Configure Chernoff Faces</h2>
       <form>
@@ -60,7 +60,7 @@
           </select>
         </div>
 
-        <button type="submit">Generate Chernoff Faces</button>
+        <button type="submit">Generate Faces</button>
       </form>
     </div>
 
@@ -70,7 +70,7 @@
 <style scoped lang="scss">
 @import './../assets/scss/variables.scss';
 
-section {
+.interface {
   width: 25vw;
   height: 80vh;
   display: flex;
@@ -85,13 +85,16 @@ section {
     justify-content: center;
     border-radius: 2vmin;
     box-shadow: 1vmin 1vmin 2vmin 0 $supportColor;
+    border: 2px solid $darkColor;
 
     h2 {
       color: $darkColor;
+      font-size: 4vmin;
+      font-family: $fontDecorative;
       width: 100%;
       padding: 2vmin;
       text-align: center;
-      border-bottom: 2px solid black;
+      border-bottom: 2px solid $darkColor;
     }
 
     form {
@@ -127,7 +130,7 @@ section {
         border: 2px solid $primaryColor;
         border-radius: 1vmin;
         cursor: pointer;
-        font-size: 1.7vmin;
+        font-size: 1.5vmin;
         transition-duration: .4s;
         font-weight: bold;
         margin-top: 5vmin;
@@ -135,6 +138,7 @@ section {
         &:hover {
           background-color: darken($supportColor, 20%);
           border-color: $bgColor;
+          letter-spacing: 2px;
         }
       }
     }

@@ -11,18 +11,21 @@
 
 header {
   background-color: $darkColor;
-  border-bottom: 2px solid $primaryColor;
+  background-image: url('./../assets/img/zwartevilt.webp');
+  border-bottom: 1px solid $primaryColor;
   box-shadow: 0 0 2vmin 1vmin $darkColor;
-  height: 10vh;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+}
 
-  h1 {
-    color: $primaryColor;
-    padding: 1vmin;
-    padding-left: 3vmin;
-    font-size: 3vmax;
-    font-family: $fontDecorative;
-    letter-spacing: 2px;
-    // filter: drop-shadow(0 0 2vmin $primaryColor);
-  }
+
+h1 {
+  color: $primaryColor;
+  padding: 1vmin;
+  margin-left: 3vmin;
+  font-size: 5vmin;
+  font-family: $fontDecorative;
+  letter-spacing: 2px;
 }
 </style>
