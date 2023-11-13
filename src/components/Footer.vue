@@ -3,7 +3,7 @@
 <template>
   <footer>
     <h3>Konrad Nowak</h3>
-    <h3>Chernoff Faces &copy; 2023</h3>
+    <h3>Twarze Chernoffa &copy; 2023</h3>
     <h3>Patryk Kaczmarski</h3>
   </footer>
 </template>

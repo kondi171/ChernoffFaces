@@ -2,7 +2,7 @@
 </script>
 <template>
   <header>
-    <h1>Chernoff's Faces</h1>
+    <h1>Twarze Chernoffa</h1>
   </header>
 </template>
 

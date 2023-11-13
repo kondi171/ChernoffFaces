@@ -3,24 +3,24 @@
 <template>
   <section class="stats">
     <div class="card">
-      <h2>Pb95</h2>
-      <p>This is a statistics page.</p>
+      <h2>Populacja</h2>
+      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
     </div>
     <div class="card">
-      <h2>ON</h2>
-      <p>This is a statistics page.</p>
+      <h2>Migracja</h2>
+      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
     </div>
     <div class="card">
-      <h2>LPG</h2>
-      <p>This is a statistics page.</p>
+      <h2>Małżeństwa</h2>
+      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
     </div>
     <div class="card">
-      <h2>V98</h2>
-      <p>This is a statistics page.</p>
+      <h2>Urodzenia</h2>
+      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
     </div>
     <div class="card">
-      <h2>VON</h2>
-      <p>This is a statistics page.</p>
+      <h2>Zgony</h2>
+      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
     </div>
   </section>
 </template>
@@ -61,7 +61,8 @@
     }
 
     p {
-      color: white;
+      color: $bgColor;
+      text-align: center;
     }
   }
 

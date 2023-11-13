@@ -1,66 +1,115 @@
 <script setup lang="ts">
+
+import voivodesipsData from './../data/voivodeships.json';
+
+import eyes1 from './../assets/img/faces/test/eyes1.png';
+import eyes2 from './../assets/img/faces/test/eyes2.png';
+import eyes3 from './../assets/img/faces/test/eyes3.png';
+
+import mouth1 from './../assets/img/faces/test/mouth1.png';
+import mouth2 from './../assets/img/faces/test/mouth2.png';
+import mouth3 from './../assets/img/faces/test/mouth3.png';
+
+import nose1 from './../assets/img/faces/test/nose1.png';
+import nose2 from './../assets/img/faces/test/nose2.png';
+import nose3 from './../assets/img/faces/test/nose3.png';
+
+import eyebrows1 from './../assets/img/faces/test/eyebrows1.png';
+import eyebrows2 from './../assets/img/faces/test/eyebrows2.png';
+import eyebrows3 from './../assets/img/faces/test/eyebrows3.png';
+
+import head1 from './../assets/img/faces/test/head1.png';
+import head2 from './../assets/img/faces/test/head2.png';
+import head3 from './../assets/img/faces/test/head3.png';
+
+import { ref } from 'vue';
+
+const eyesSelect = ref<String | null>(null);
+const mouthSelect = ref<String | null>(null);
+const noseSelect = ref<String | null>(null);
+const eyebrowsSelect = ref<String | null>(null);
+const headSelect = ref<String | null>(null);
+
+const generateChernoffFaces = (e: MouseEvent) => {
+  e.preventDefault();
+  const eyes = document.getElementById('eyes') as HTMLSelectElement;
+  const mouth = document.getElementById('mouth') as HTMLSelectElement;
+  const nose = document.getElementById('nose') as HTMLSelectElement;
+  const eyebrows = document.getElementById('eyebrows') as HTMLSelectElement;
+  const head = document.getElementById('head') as HTMLSelectElement;
+  eyesSelect.value = eyes.value;
+  mouthSelect.value = mouth.value;
+  noseSelect.value = nose.value;
+  eyebrowsSelect.value = eyebrows.value;
+  headSelect.value = head.value;
+}
+
+const setMouth = (e: MouseEvent) => {
+  mouthSelect.value = e.target.value;
+}
+
 </script>
 <template>
   <section class="interface">
     <div class="configure-box">
-      <h2>Configure Chernoff Faces</h2>
+      <h2>Skonfiguruj Twarze Chernoffa</h2>
       <form>
         <div class="form-group">
-          <label for="eyes">Eyes:</label>
+          <label for="eyes">Oczy:</label>
           <select id="eyes" name="eyes">
-            <option value="pb95">Pb 95</option>
-            <option value="on">ON</option>
-            <option value="lpg">LPG</option>
-            <option value="v98">V98</option>
-            <option value="von">VON</option>
+            <option value="population">Populacja</option>
+            <option value="migration">Migracja</option>
+            <option value="marriages">Małżeństwa</option>
+            <option value="born">Urodzenia</option>
+            <option value="deaths">Zgony</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="mouth">Mouth:</label>
-          <select id="mouth" name="mouth">
-            <option value="pb95">Pb 95</option>
-            <option value="on">ON</option>
-            <option value="lpg">LPG</option>
-            <option value="v98">V98</option>
-            <option value="von">VON</option>
+          <label for="mouth">Usta:</label>
+          <select v-on:change="(e) => setMouth(e)" id="mouth" name="mouth">
+            <option value="population">Populacja</option>
+            <option value="migration">Migracja</option>
+            <option value="marriages">Małżeństwa</option>
+            <option value="born">Urodzenia</option>
+            <option value="deaths">Zgony</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="nose">Nose:</label>
+          <label for="nose">Nos:</label>
           <select id="nose" name="nose">
-            <option value="pb95">Pb 95</option>
-            <option value="on">ON</option>
-            <option value="lpg">LPG</option>
-            <option value="v98">V98</option>
-            <option value="von">VON</option>
+            <option value="population">Populacja</option>
+            <option value="migration">Migracja</option>
+            <option value="marriages">Małżeństwa</option>
+            <option value="born">Urodzenia</option>
+            <option value="deaths">Zgony</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="eyebrows">Eyebrows:</label>
+          <label for="eyebrows">Brwi:</label>
           <select id="eyebrows" name="eyebrows">
-            <option value="pb95">Pb 95</option>
-            <option value="on">ON</option>
-            <option value="lpg">LPG</option>
-            <option value="v98">V98</option>
-            <option value="von">VON</option>
+            <option value="population">Populacja</option>
+            <option value="migration">Migracja</option>
+            <option value="marriages">Małżeństwa</option>
+            <option value="born">Urodzenia</option>
+            <option value="deaths">Zgony</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="head">Head:</label>
+          <label for="head">Głowa:</label>
           <select id="head" name="head">
-            <option value="pb95">Pb 95</option>
-            <option value="on">ON</option>
-            <option value="lpg">LPG</option>
-            <option value="v98">V98</option>
-            <option value="von">VON</option>
+            <option value="population">Populacja</option>
+            <option value="migration">Migracja</option>
+            <option value="marriages">Małżeństwa</option>
+            <option value="born">Urodzenia</option>
+            <option value="deaths">Zgony</option>
           </select>
         </div>
 
-        <button type="submit">Generate Faces</button>
+        <button v-on:click="(e) => generateChernoffFaces(e)">Generuj Twarze</button>
       </form>
     </div>
 
