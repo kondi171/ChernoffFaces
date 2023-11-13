@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { FacePart, DataParts, PopulationCompartments, MigrationCompartments, MarriageCompartments, BornCompartments, DeathsCompartments } from './../ts/enums';
+import { VoivodeFace } from './../ts/types';
 
 import voivodesipsData from './../data/voivodeships.json';
 
@@ -22,32 +24,257 @@ import head1 from './../assets/img/faces/test/head1.png';
 import head2 from './../assets/img/faces/test/head2.png';
 import head3 from './../assets/img/faces/test/head3.png';
 
-import { ref } from 'vue';
+import { useAppStore } from '../stores/app';
+import { reactive, onMounted } from 'vue';
 
-const eyesSelect = ref<String | null>(null);
-const mouthSelect = ref<String | null>(null);
-const noseSelect = ref<String | null>(null);
-const eyebrowsSelect = ref<String | null>(null);
-const headSelect = ref<String | null>(null);
+const appStore = useAppStore();
+const { chernoffFace } = appStore;
+
+const voivodeFaces = reactive<VoivodeFace[]>([]);
 
 const generateChernoffFaces = (e: MouseEvent) => {
   e.preventDefault();
-  const eyes = document.getElementById('eyes') as HTMLSelectElement;
-  const mouth = document.getElementById('mouth') as HTMLSelectElement;
-  const nose = document.getElementById('nose') as HTMLSelectElement;
-  const eyebrows = document.getElementById('eyebrows') as HTMLSelectElement;
-  const head = document.getElementById('head') as HTMLSelectElement;
-  eyesSelect.value = eyes.value;
-  mouthSelect.value = mouth.value;
-  noseSelect.value = nose.value;
-  eyebrowsSelect.value = eyebrows.value;
-  headSelect.value = head.value;
+  generateEyes();
+  generateMouth();
+  generateNose();
+  generateEyebrows();
+  generateHead();
+  console.log(voivodeFaces);
+}
+const generateEyes = () => {
+  if (chernoffFace.eyes === DataParts.POPULATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      else if (voivode.population > PopulationCompartments.LOW &&
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
+      else voivodeFaces[i].eyes = eyes3;
+    });
+  } else if (chernoffFace.eyes === DataParts.MIGRATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      else if (voivode.migration > MigrationCompartments.LOW &&
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
+      else voivodeFaces[i].eyes = eyes3;
+    });
+  }
+  else if (chernoffFace.eyes === DataParts.MARRIAGES) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      else if (voivode.marriages > MarriageCompartments.LOW &&
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
+      else voivodeFaces[i].eyes = eyes3;
+    });
+  }
+  else if (chernoffFace.eyes === DataParts.BORN) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      else if (voivode.born > BornCompartments.LOW &&
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
+      else voivodeFaces[i].eyes = eyes3;
+    });
+  }
+  else if (chernoffFace.eyes === DataParts.DEATHS) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      else if (voivode.deaths > DeathsCompartments.LOW &&
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
+      else voivodeFaces[i].eyes = eyes3;
+    });
+  }
 }
 
-const setMouth = (e: MouseEvent) => {
-  mouthSelect.value = e.target.value;
+const generateMouth = () => {
+  if (chernoffFace.mouth === DataParts.POPULATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      else if (voivode.population > PopulationCompartments.LOW &&
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].mouth = mouth2;
+      else voivodeFaces[i].mouth = mouth3;
+    });
+  } else if (chernoffFace.mouth === DataParts.MIGRATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      else if (voivode.migration > MigrationCompartments.LOW &&
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].mouth = mouth2;
+      else voivodeFaces[i].mouth = mouth3;
+    });
+  }
+  else if (chernoffFace.mouth === DataParts.MARRIAGES) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      else if (voivode.marriages > MarriageCompartments.LOW &&
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].mouth = mouth2;
+      else voivodeFaces[i].mouth = mouth3;
+    });
+  }
+  else if (chernoffFace.mouth === DataParts.BORN) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      else if (voivode.born > BornCompartments.LOW &&
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].mouth = mouth2;
+      else voivodeFaces[i].mouth = mouth3;
+    });
+  }
+  else if (chernoffFace.mouth === DataParts.DEATHS) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      else if (voivode.deaths > DeathsCompartments.LOW &&
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].eyes = mouth2;
+      else voivodeFaces[i].mouth = mouth3;
+    });
+  }
 }
 
+const generateNose = () => {
+  if (chernoffFace.nose === DataParts.POPULATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].nose = nose1;
+      else if (voivode.population > PopulationCompartments.LOW &&
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
+      else voivodeFaces[i].nose = nose3;
+    });
+  } else if (chernoffFace.nose === DataParts.MIGRATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].nose = nose1;
+      else if (voivode.migration > MigrationCompartments.LOW &&
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
+      else voivodeFaces[i].nose = nose3;
+    });
+  }
+  else if (chernoffFace.nose === DataParts.MARRIAGES) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].nose = nose1;
+      else if (voivode.marriages > MarriageCompartments.LOW &&
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
+      else voivodeFaces[i].nose = nose3;
+    });
+  }
+  else if (chernoffFace.nose === DataParts.BORN) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].nose = nose1;
+      else if (voivode.born > BornCompartments.LOW &&
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
+      else voivodeFaces[i].nose = nose3;
+    });
+  }
+  else if (chernoffFace.nose === DataParts.DEATHS) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].nose = nose1;
+      else if (voivode.deaths > DeathsCompartments.LOW &&
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
+      else voivodeFaces[i].nose = nose3;
+    });
+  }
+}
+
+const generateEyebrows = () => {
+  if (chernoffFace.eyebrows === DataParts.POPULATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      else if (voivode.population > PopulationCompartments.LOW &&
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
+      else voivodeFaces[i].eyebrows = eyebrows3;
+    });
+  } else if (chernoffFace.eyebrows === DataParts.MIGRATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      else if (voivode.migration > MigrationCompartments.LOW &&
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
+      else voivodeFaces[i].eyebrows = eyebrows3;
+    });
+  }
+  else if (chernoffFace.eyebrows === DataParts.MARRIAGES) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      else if (voivode.marriages > MarriageCompartments.LOW &&
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
+      else voivodeFaces[i].eyebrows = eyebrows3;
+    });
+  }
+  else if (chernoffFace.eyebrows === DataParts.BORN) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      else if (voivode.born > BornCompartments.LOW &&
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
+      else voivodeFaces[i].eyebrows = eyebrows3;
+    });
+  }
+  else if (chernoffFace.eyebrows === DataParts.DEATHS) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      else if (voivode.deaths > DeathsCompartments.LOW &&
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
+      else voivodeFaces[i].eyebrows = eyebrows3;
+    });
+  }
+}
+
+const generateHead = () => {
+  if (chernoffFace.head === DataParts.POPULATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].head = head1;
+      else if (voivode.population > PopulationCompartments.LOW &&
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].head = head2;
+      else voivodeFaces[i].head = head3;
+    });
+  } else if (chernoffFace.head === DataParts.MIGRATION) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].head = head1;
+      else if (voivode.migration > MigrationCompartments.LOW &&
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].head = head2;
+      else voivodeFaces[i].head = head3;
+    });
+  }
+  else if (chernoffFace.head === DataParts.MARRIAGES) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].head = head1;
+      else if (voivode.marriages > MarriageCompartments.LOW &&
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].head = head2;
+      else voivodeFaces[i].head = head3;
+    });
+  }
+  else if (chernoffFace.head === DataParts.BORN) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].head = head1;
+      else if (voivode.born > BornCompartments.LOW &&
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].head = head2;
+      else voivodeFaces[i].head = head3;
+    });
+  }
+  else if (chernoffFace.head === DataParts.DEATHS) {
+    voivodesipsData.forEach((voivode, i) => {
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].head = head1;
+      else if (voivode.deaths > DeathsCompartments.LOW &&
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].head = head2;
+      else voivodeFaces[i].head = head3;
+    });
+  }
+}
+
+const setFacePart = (e: Event, part: FacePart) => {
+  const select = e.target as HTMLSelectElement;
+  if (part === FacePart.EYES) chernoffFace.eyes = Number(select.value);
+  else if (part === FacePart.MOUTH) chernoffFace.mouth = Number(select.value);
+  else if (part === FacePart.NOSE) chernoffFace.nose = Number(select.value);
+  else if (part === FacePart.EYEBROWS) chernoffFace.eyebrows = Number(select.value);
+  else if (part === FacePart.HEAD) chernoffFace.head = Number(select.value);
+}
+
+
+
+onMounted(() => {
+  voivodesipsData.forEach(voivode => {
+    voivodeFaces.push({
+      id: voivode.id,
+      name: voivode.name,
+      eyes: null,
+      mouth: null,
+      nose: null,
+      eyebrows: null,
+      head: null
+    });
+  })
+});
 </script>
 <template>
   <section class="interface">
@@ -56,63 +283,70 @@ const setMouth = (e: MouseEvent) => {
       <form>
         <div class="form-group">
           <label for="eyes">Oczy:</label>
-          <select id="eyes" name="eyes">
-            <option value="population">Populacja</option>
-            <option value="migration">Migracja</option>
-            <option value="marriages">Małżeństwa</option>
-            <option value="born">Urodzenia</option>
-            <option value="deaths">Zgony</option>
+          <select v-on:change="(e) => setFacePart(e, FacePart.EYES)" id="eyes" name="eyes">
+            <option selected v-bind:value="DataParts.POPULATION">Populacja</option>
+            <option v-bind:value="DataParts.MIGRATION">Migracja</option>
+            <option v-bind:value="DataParts.MARRIAGES">Małżeństwa</option>
+            <option v-bind:value="DataParts.BORN">Urodzenia</option>
+            <option v-bind:value="DataParts.DEATHS">Zgony</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="mouth">Usta:</label>
-          <select v-on:change="(e) => setMouth(e)" id="mouth" name="mouth">
-            <option value="population">Populacja</option>
-            <option value="migration">Migracja</option>
-            <option value="marriages">Małżeństwa</option>
-            <option value="born">Urodzenia</option>
-            <option value="deaths">Zgony</option>
+          <select v-on:change="(e) => setFacePart(e, FacePart.MOUTH)" id="mouth" name="mouth">
+            <option v-bind:value="DataParts.POPULATION">Populacja</option>
+            <option selected v-bind:value="DataParts.MIGRATION">Migracja</option>
+            <option v-bind:value="DataParts.MARRIAGES">Małżeństwa</option>
+            <option v-bind:value="DataParts.BORN">Urodzenia</option>
+            <option v-bind:value="DataParts.DEATHS">Zgony</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="nose">Nos:</label>
-          <select id="nose" name="nose">
-            <option value="population">Populacja</option>
-            <option value="migration">Migracja</option>
-            <option value="marriages">Małżeństwa</option>
-            <option value="born">Urodzenia</option>
-            <option value="deaths">Zgony</option>
+          <select v-on:change="(e) => setFacePart(e, FacePart.NOSE)" id="nose" name="nose">
+            <option v-bind:value="DataParts.POPULATION">Populacja</option>
+            <option v-bind:value="DataParts.MIGRATION">Migracja</option>
+            <option selected v-bind:value="DataParts.MARRIAGES">Małżeństwa</option>
+            <option v-bind:value="DataParts.BORN">Urodzenia</option>
+            <option v-bind:value="DataParts.DEATHS">Zgony</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="eyebrows">Brwi:</label>
-          <select id="eyebrows" name="eyebrows">
-            <option value="population">Populacja</option>
-            <option value="migration">Migracja</option>
-            <option value="marriages">Małżeństwa</option>
-            <option value="born">Urodzenia</option>
-            <option value="deaths">Zgony</option>
+          <select v-on:change="(e) => setFacePart(e, FacePart.EYEBROWS)" id="eyebrows" name="eyebrows">
+            <option v-bind:value="DataParts.POPULATION">Populacja</option>
+            <option v-bind:value="DataParts.MIGRATION">Migracja</option>
+            <option v-bind:value="DataParts.MARRIAGES">Małżeństwa</option>
+            <option selected v-bind:value="DataParts.BORN">Urodzenia</option>
+            <option v-bind:value="DataParts.DEATHS">Zgony</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="head">Głowa:</label>
-          <select id="head" name="head">
-            <option value="population">Populacja</option>
-            <option value="migration">Migracja</option>
-            <option value="marriages">Małżeństwa</option>
-            <option value="born">Urodzenia</option>
-            <option value="deaths">Zgony</option>
+          <select v-on:change="(e) => setFacePart(e, FacePart.HEAD)" id="head" name="head">
+            <option v-bind:value="DataParts.POPULATION">Populacja</option>
+            <option v-bind:value="DataParts.MIGRATION">Migracja</option>
+            <option v-bind:value="DataParts.MARRIAGES">Małżeństwa</option>
+            <option v-bind:value="DataParts.BORN">Urodzenia</option>
+            <option selected v-bind:value="DataParts.DEATHS">Zgony</option>
           </select>
         </div>
 
         <button v-on:click="(e) => generateChernoffFaces(e)">Generuj Twarze</button>
       </form>
-    </div>
+      <div class="chernoffFace">
+        <img v-bind:src="voivodeFaces[7]?.eyes" alt="">
+        <img v-bind:src="voivodeFaces[7]?.mouth" alt="">
+        <img v-bind:src="voivodeFaces[7]?.nose" alt="">
+        <img v-bind:src="voivodeFaces[7]?.eyebrows" alt="">
+        <img v-bind:src="voivodeFaces[7]?.head" alt="">
+      </div>
 
+    </div>
   </section>
 </template>
 
@@ -125,6 +359,16 @@ const setMouth = (e: MouseEvent) => {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .chernoffFace {
+    position: relative;
+
+    img {
+      position: absolute;
+      top: -100px;
+      left: 100px;
+    }
+  }
 
   .configure-box {
     background-color: $secondaryColor;

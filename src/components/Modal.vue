@@ -14,17 +14,35 @@ const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', '
       <!-- transform="translate(50%, 50%)"> -->
       <!-- </path> -->
       <!-- </svg> -->
-      <ul>
-        <li>Popuacja: <strong>{{ voivodeship.chernoffData.population }}</strong></li>
-        <li>Migracja: <strong>{{ voivodeship.chernoffData.migration }}</strong></li>
-        <li>Małżeństwa: <strong>{{ voivodeship.chernoffData.marriages }}</strong></li>
-        <li>Urodzenia: <strong>{{ voivodeship.chernoffData.born }}</strong></li>
-        <li>Zgony: <strong>{{ voivodeship.chernoffData.deaths }}</strong></li>
-      </ul>
-      <div class="chernoffFace">
-        <img src="./../assets/img/map.png" alt="Chernoff Faces">
-        <h3>Generated Chernoff Face</h3>
+      <div class="flex-wrapper">
+        <ul>
+          <li>
+            <font-awesome-icon class="data-icon" icon="people-group" />
+            Popuacja: <strong>{{ voivodeship.population }}</strong>
+          </li>
+          <li>
+            <font-awesome-icon class="data-icon" icon="suitcase-rolling" />
+            Migracja: <strong>{{ voivodeship.migration }}</strong>
+          </li>
+          <li>
+            <font-awesome-icon class="data-icon" icon="baby-carriage" />
+            Małżeństwa: <strong>{{ voivodeship.marriages }}</strong>
+          </li>
+          <li>
+            <font-awesome-icon class="data-icon" icon="person-arrow-up-from-line" />
+            Urodzenia: <strong>{{ voivodeship.born }}</strong>
+          </li>
+          <li>
+            <font-awesome-icon class="data-icon" icon="skull" />
+            Zgony: <strong>{{ voivodeship.deaths }}</strong>
+          </li>
+        </ul>
+        <div class="chernoffFace">
+          <h3>Wygenerowana Twarz Chernoffa</h3>
+          <img src="./../assets/img/map.png" alt="Chernoff Faces">
+        </div>
       </div>
+
       <font-awesome-icon v-on:click="closeModal" icon="fa-solid fa-x" class="icon" />
     </div>
   </div>
@@ -54,21 +72,22 @@ const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', '
 
   .modal {
     position: relative;
-    width: 35%;
-    height: 40vh;
-    background-color: $primaryColor;
+    width: 60%;
+    height: 60vh;
+    background-color: $darkColor;
     border-radius: 5vmin 0 5vmin 0;
     border: 2px solid $darkColor;
     padding: 2vmin;
-    box-shadow: 8px 8px 24px 0px $darkColor;
     transform: scale(0);
     opacity: 0;
 
     h2 {
-      font-size: 4vmin;
+      font-size: 6vmin;
       font-family: $fontDecorative;
       color: $secondaryColor;
       text-shadow: 1px 1px 1px $darkColor;
+      text-align: center;
+      border-bottom: 2px solid $secondaryColor;
     }
 
     &.activeModal {
@@ -76,30 +95,68 @@ const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', '
       opacity: 1;
     }
 
-    ul {
-      list-style-type: none;
-      color: $bgColor;
+    .flex-wrapper {
+      display: flex;
+      // flex-direction: column;
+      justify-content: space-between;
 
-      li {
-        margin: 1vmin;
-        font-size: 2vmin;
+      ul {
+        list-style-type: none;
+        color: $bgColor;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 4vmin;
+        width: 50%;
+
+        li {
+          font-size: 3.5vmin;
+          font-weight: 600;
+          padding: 1vmin;
+          margin: 1vmin;
+          display: flex;
+          justify-content: space-between;
+          width: 80%;
+          border-bottom: 2px solid $secondaryColor;
+          color: $secondaryColor;
+          border-radius: 1vmin;
+
+          &:nth-of-type(odd) {
+            background-color: lighten($darkColor, 10%);
+
+          }
+
+          strong {
+            color: $bgColor;
+          }
+
+          .data-icon {
+            font-size: 4vmin;
+            margin: 0 1vmin;
+            color: $bgColor;
+          }
+        }
       }
+
+      .chernoffFace {
+        text-align: center;
+        margin-top: 4vmin;
+        background-color: #fff;
+
+        h3 {
+          color: $bgColor;
+          font-weight: bold;
+        }
+
+        img {
+          width: 10%;
+          height: 10%;
+        }
+      }
+
     }
 
-    .chernoffFace {
-      text-align: center;
-      margin-top: 4vmin;
-
-      h3 {
-        color: $darkColor;
-        font-weight: bold;
-      }
-
-      img {
-        width: 10%;
-        height: 10%;
-      }
-    }
 
     .icon {
       font-size: 2.5vmin;
@@ -107,6 +164,8 @@ const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', '
       position: absolute;
       right: -1vmin;
       top: -2vmin;
+      width: 30px;
+      height: 30px;
       color: $secondaryColor;
       background-color: $darkColor;
       border-radius: 50%;

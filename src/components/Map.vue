@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import voivodeshipsData from './../data/voivodeships.json';
 import Modal from './Modal.vue';
+import { useAppStore } from '../stores/app';
+
+const appStore = useAppStore();
+const { chernoffFace, isFaceGenerated } = appStore;
 
 const modalVisible = ref(false);
 const voivodeshipData = ref<any>(null);
@@ -27,6 +31,9 @@ const handleModal = (voivodeship: any) => {
 const handleCloseModal = () => {
   modalVisible.value = false;
 }
+
+
+
 </script>
 
 <template>
@@ -35,7 +42,7 @@ const handleCloseModal = () => {
       <svg class="map" id="map" viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
         <path v-on:mouseover="(e) => handleTitleVisible(e, voivodeship.name)"
           v-on:mouseleave="() => handleTitleInvisible()" v-on:click="() => handleModal(voivodeship)" class="voivodeship"
-          v-for="voivodeship in voivodeshipsData" :d="voivodeship.points" :id="voivodeship.id">
+          v-for="voivodeship in voivodeshipsData" :d="voivodeship.points" :symbol="voivodeship.symbol">
         </path>
       </svg>
       <span id="title" class="title"></span>
