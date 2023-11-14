@@ -7,12 +7,14 @@ export const useAppStore = defineStore('app', () => {
     eyes: DataParts.POPULATION,
     mouth: DataParts.MIGRATION,
     nose: DataParts.MARRIAGES,
-    eyebrows: DataParts.BORN,
+    hair: DataParts.BORN,
     head: DataParts.DEATHS
   });
   const voivodeFaces = reactive<VoivodeFace[]>([]);
+  const isFacesGenerated = ref(false);
   return {
     chernoffFace,
     voivodeFaces,
+    isFacesGenerated,
   }
 });

@@ -2,7 +2,7 @@ export enum FacePart {
   EYES,
   MOUTH,
   NOSE,
-  EYEBROWS,
+  HAIR,
   HEAD
 }
 

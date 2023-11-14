@@ -1,53 +1,70 @@
 <script setup lang="ts">
 
+import { useAppStore } from '../stores/app';
+
 const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', 'voivodeship', 'closeModal']);
-
-
+const appStore = useAppStore();
+const { voivodeFaces } = appStore;
 
 </script>
 <template>
   <div class="overlay" :class="{ activeOverlay: modalVisible }">
     <div v-if="modalVisible" class="modal" :class="{ activeModal: modalVisible }">
       <h2>{{ voivodeship.name }}</h2>
-      <!-- <svg class="map" id="map" viewBox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg"> -->
-      <!-- <path class="voivodeship" v-bind:d="voivodeship.points" v-bind:id="voivodeship.id" -->
-      <!-- transform="translate(50%, 50%)"> -->
-      <!-- </path> -->
-      <!-- </svg> -->
-      <div class="flex-wrapper">
-        <ul>
-          <li>
-            <font-awesome-icon class="data-icon" icon="people-group" />
-            Popuacja: <strong>{{ voivodeship.population }}</strong>
-          </li>
-          <li>
-            <font-awesome-icon class="data-icon" icon="suitcase-rolling" />
-            Migracja: <strong>{{ voivodeship.migration }}</strong>
-          </li>
-          <li>
-            <font-awesome-icon class="data-icon" icon="baby-carriage" />
-            Małżeństwa: <strong>{{ voivodeship.marriages }}</strong>
-          </li>
-          <li>
-            <font-awesome-icon class="data-icon" icon="person-arrow-up-from-line" />
-            Urodzenia: <strong>{{ voivodeship.born }}</strong>
-          </li>
-          <li>
-            <font-awesome-icon class="data-icon" icon="skull" />
-            Zgony: <strong>{{ voivodeship.deaths }}</strong>
-          </li>
-        </ul>
-        <div class="chernoffFace">
-          <h3>Wygenerowana Twarz Chernoffa</h3>
-          <img src="./../assets/img/map.png" alt="Chernoff Faces">
+      <div class="data-wrapper">
+        <div class="demographic-data">
+          <h3>Dane Demograficzne:</h3>
+          <ul>
+            <li>
+              <font-awesome-icon class="data-icon" icon="people-group" />
+              Popuacja: <strong>{{ voivodeship.population }}</strong>
+            </li>
+            <li>
+              <font-awesome-icon class="data-icon" icon="suitcase-rolling" />
+              Migracja: <strong>{{ voivodeship.migration }}</strong>
+            </li>
+            <li>
+              <font-awesome-icon class="data-icon" icon="children" />
+              Małżeństwa: <strong>{{ voivodeship.marriages }}</strong>
+            </li>
+            <li>
+              <font-awesome-icon class="data-icon" icon="baby-carriage" />
+              Urodzenia: <strong>{{ voivodeship.born }}</strong>
+            </li>
+            <li>
+              <font-awesome-icon class="data-icon" icon="skull" />
+              Zgony: <strong>{{ voivodeship.deaths }}</strong>
+            </li>
+          </ul>
+        </div>
+
+        <div class="chernoff-face">
+          <h3>Wygenerowana Twarz Chernoffa:</h3>
+          <svg class="map" id="map" viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
+            <path v-for="voivodeshipFace in voivodeFaces"
+              :class="{ 'activeVoivodeship': voivodeshipFace.name === voivodeship.name }" class="voivodeship"
+              :key="voivodeshipFace.id" :d="voivodeshipFace.points">
+            </path>
+          </svg>
+          <div class="face-container">
+            <img v-if="voivodeFaces[0].face.eyes" v-for="face in voivodeship.face" v-bind:src="face"
+              :data-symbol="voivodeship.symbol" alt="">
+            <div v-else class="not-generated">
+              Twarze Chernoffa nie zostały jeszcze wygenerowane!
+            </div>
+          </div>
         </div>
       </div>
-
       <font-awesome-icon v-on:click="closeModal" icon="fa-solid fa-x" class="icon" />
     </div>
   </div>
 </template>
-
+<!--<div v-if="voivodeFaces?.face" class="img-container">
+       <img src="./../assets/img/map.png" alt="Chernoff Faces">
+      </div>
+      <div v-else class="not-generated">
+        Twarze Chernoffa nie zostały jeszcze wygenerowane!
+    </div>  -->
 <style scoped lang="scss">
 @import './../assets/scss/variables.scss';
 
@@ -95,68 +112,90 @@ const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', '
       opacity: 1;
     }
 
-    .flex-wrapper {
+    .data-wrapper {
       display: flex;
-      // flex-direction: column;
-      justify-content: space-between;
+      justify-content: space-evenly;
 
-      ul {
-        list-style-type: none;
-        color: $bgColor;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-top: 4vmin;
+      h3 {
+        text-align: center;
+        display: block;
+        padding: 2vmin;
+        font-size: 3vmin;
+        color: $primaryColor;
+      }
+
+      .demographic-data {
         width: 50%;
 
-        li {
-          font-size: 3.5vmin;
-          font-weight: 600;
-          padding: 1vmin;
-          margin: 1vmin;
-          display: flex;
-          justify-content: space-between;
-          width: 80%;
-          border-bottom: 2px solid $secondaryColor;
-          color: $secondaryColor;
-          border-radius: 1vmin;
-
-          &:nth-of-type(odd) {
-            background-color: lighten($darkColor, 10%);
-
-          }
-
-          strong {
-            color: $bgColor;
-          }
-
-          .data-icon {
-            font-size: 4vmin;
-            margin: 0 1vmin;
-            color: $bgColor;
-          }
-        }
-      }
-
-      .chernoffFace {
-        text-align: center;
-        margin-top: 4vmin;
-        background-color: #fff;
-
-        h3 {
+        ul {
+          list-style-type: none;
           color: $bgColor;
-          font-weight: bold;
-        }
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
 
-        img {
-          width: 10%;
-          height: 10%;
+          li {
+            font-size: 3.5vmin;
+            font-weight: 600;
+            padding: 1vmin;
+            margin: 1vmin;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            border-bottom: 2px solid $secondaryColor;
+            color: $secondaryColor;
+            border-radius: 1vmin;
+
+            &:nth-of-type(odd) {
+              background-color: lighten($darkColor, 10%);
+
+            }
+
+            strong {
+              color: $bgColor;
+            }
+
+            .data-icon {
+              font-size: 4vmin;
+              margin: 0 1vmin;
+              color: $bgColor;
+            }
+          }
         }
       }
 
-    }
+      .chernoff-face {
+        text-align: center;
+        width: 45%;
+        position: relative;
 
+        .face-container {
+          position: absolute;
+          top: 40%;
+          left: 40%;
+
+          .not-generated {
+            color: red;
+            font-size: 2vmin;
+            font-weight: bold;
+            background-color: $darkColor;
+            padding: 1vmin;
+            text-align: center;
+            border-radius: 1vmin;
+            margin-left: -35%;
+            width: 100%;
+          }
+
+          img {
+            position: absolute;
+            transform: scale(1.4);
+          }
+        }
+
+
+      }
+    }
 
     .icon {
       font-size: 2.5vmin;
@@ -181,18 +220,21 @@ const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', '
     }
 
     .map {
-      position: absolute;
-      top: -10vmin;
-      left: 15%;
-      background-color: #fff;
+      width: 80%;
+      height: 80%;
+
 
       path {
-        fill: $darkColor;
-        stroke: $secondaryColor;
-        // stroke: $primaryColor;
+        // fill: $primaryColor;
+        // stroke: $secondaryColor;
+        stroke: $primaryColor;
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-width: 4px;
+
+        &.activeVoivodeship {
+          fill: $primaryColor;
+        }
       }
     }
   }

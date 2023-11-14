@@ -15,9 +15,9 @@ import nose1 from './../assets/img/faces/nose1.png';
 import nose2 from './../assets/img/faces/nose2.png';
 import nose3 from './../assets/img/faces/nose3.png';
 
-import eyebrows1 from './../assets/img/faces/hair1.png';
-import eyebrows2 from './../assets/img/faces/hair2.png';
-import eyebrows3 from './../assets/img/faces/hair3.png';
+import hair1 from './../assets/img/faces/hair1.png';
+import hair2 from './../assets/img/faces/hair2.png';
+import hair3 from './../assets/img/faces/hair3.png';
 
 import head1 from './../assets/img/faces/head1.png';
 import head2 from './../assets/img/faces/head2.png';
@@ -34,48 +34,49 @@ const generateChernoffFaces = (e: MouseEvent) => {
   generateEyes();
   generateMouth();
   generateNose();
-  generateEyebrows();
+  generateHair();
   generateHead();
+  // isFacesGenerated.value = true;
   // console.log(voivodeFaces);
 }
 const generateEyes = () => {
   if (chernoffFace.eyes === DataParts.POPULATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].face.eyes = eyes1;
       else if (voivode.population > PopulationCompartments.LOW &&
-        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
-      else voivodeFaces[i].eyes = eyes3;
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].face.eyes = eyes2;
+      else voivodeFaces[i].face.eyes = eyes3;
     });
   } else if (chernoffFace.eyes === DataParts.MIGRATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].face.eyes = eyes1;
       else if (voivode.migration > MigrationCompartments.LOW &&
-        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
-      else voivodeFaces[i].eyes = eyes3;
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].face.eyes = eyes2;
+      else voivodeFaces[i].face.eyes = eyes3;
     });
   }
   else if (chernoffFace.eyes === DataParts.MARRIAGES) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].face.eyes = eyes1;
       else if (voivode.marriages > MarriageCompartments.LOW &&
-        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
-      else voivodeFaces[i].eyes = eyes3;
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].face.eyes = eyes2;
+      else voivodeFaces[i].face.eyes = eyes3;
     });
   }
   else if (chernoffFace.eyes === DataParts.BORN) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].face.eyes = eyes1;
       else if (voivode.born > BornCompartments.LOW &&
-        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
-      else voivodeFaces[i].eyes = eyes3;
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].face.eyes = eyes2;
+      else voivodeFaces[i].face.eyes = eyes3;
     });
   }
   else if (chernoffFace.eyes === DataParts.DEATHS) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].eyes = eyes1;
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].face.eyes = eyes1;
       else if (voivode.deaths > DeathsCompartments.LOW &&
-        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].eyes = eyes2;
-      else voivodeFaces[i].eyes = eyes3;
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].face.eyes = eyes2;
+      else voivodeFaces[i].face.eyes = eyes3;
     });
   }
 }
@@ -83,41 +84,41 @@ const generateEyes = () => {
 const generateMouth = () => {
   if (chernoffFace.mouth === DataParts.POPULATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].face.mouth = mouth1;
       else if (voivode.population > PopulationCompartments.LOW &&
-        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].mouth = mouth2;
-      else voivodeFaces[i].mouth = mouth3;
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].face.mouth = mouth2;
+      else voivodeFaces[i].face.mouth = mouth3;
     });
   } else if (chernoffFace.mouth === DataParts.MIGRATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].face.mouth = mouth1;
       else if (voivode.migration > MigrationCompartments.LOW &&
-        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].mouth = mouth2;
-      else voivodeFaces[i].mouth = mouth3;
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].face.mouth = mouth2;
+      else voivodeFaces[i].face.mouth = mouth3;
     });
   }
   else if (chernoffFace.mouth === DataParts.MARRIAGES) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].face.mouth = mouth1;
       else if (voivode.marriages > MarriageCompartments.LOW &&
-        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].mouth = mouth2;
-      else voivodeFaces[i].mouth = mouth3;
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].face.mouth = mouth2;
+      else voivodeFaces[i].face.mouth = mouth3;
     });
   }
   else if (chernoffFace.mouth === DataParts.BORN) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].face.mouth = mouth1;
       else if (voivode.born > BornCompartments.LOW &&
-        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].mouth = mouth2;
-      else voivodeFaces[i].mouth = mouth3;
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].face.mouth = mouth2;
+      else voivodeFaces[i].face.mouth = mouth3;
     });
   }
   else if (chernoffFace.mouth === DataParts.DEATHS) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].mouth = mouth1;
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].face.mouth = mouth1;
       else if (voivode.deaths > DeathsCompartments.LOW &&
-        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].eyes = mouth2;
-      else voivodeFaces[i].mouth = mouth3;
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].face.eyes = mouth2;
+      else voivodeFaces[i].face.mouth = mouth3;
     });
   }
 }
@@ -125,83 +126,83 @@ const generateMouth = () => {
 const generateNose = () => {
   if (chernoffFace.nose === DataParts.POPULATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].nose = nose1;
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].face.nose = nose1;
       else if (voivode.population > PopulationCompartments.LOW &&
-        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
-      else voivodeFaces[i].nose = nose3;
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].face.nose = nose2;
+      else voivodeFaces[i].face.nose = nose3;
     });
   } else if (chernoffFace.nose === DataParts.MIGRATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].nose = nose1;
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].face.nose = nose1;
       else if (voivode.migration > MigrationCompartments.LOW &&
-        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
-      else voivodeFaces[i].nose = nose3;
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].face.nose = nose2;
+      else voivodeFaces[i].face.nose = nose3;
     });
   }
   else if (chernoffFace.nose === DataParts.MARRIAGES) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].nose = nose1;
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].face.nose = nose1;
       else if (voivode.marriages > MarriageCompartments.LOW &&
-        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
-      else voivodeFaces[i].nose = nose3;
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].face.nose = nose2;
+      else voivodeFaces[i].face.nose = nose3;
     });
   }
   else if (chernoffFace.nose === DataParts.BORN) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].nose = nose1;
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].face.nose = nose1;
       else if (voivode.born > BornCompartments.LOW &&
-        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
-      else voivodeFaces[i].nose = nose3;
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].face.nose = nose2;
+      else voivodeFaces[i].face.nose = nose3;
     });
   }
   else if (chernoffFace.nose === DataParts.DEATHS) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].nose = nose1;
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].face.nose = nose1;
       else if (voivode.deaths > DeathsCompartments.LOW &&
-        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].nose = nose2;
-      else voivodeFaces[i].nose = nose3;
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].face.nose = nose2;
+      else voivodeFaces[i].face.nose = nose3;
     });
   }
 }
 
-const generateEyebrows = () => {
-  if (chernoffFace.eyebrows === DataParts.POPULATION) {
+const generateHair = () => {
+  if (chernoffFace.hair === DataParts.POPULATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].face.hair = hair1;
       else if (voivode.population > PopulationCompartments.LOW &&
-        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
-      else voivodeFaces[i].eyebrows = eyebrows3;
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].face.hair = hair2;
+      else voivodeFaces[i].face.hair = hair3;
     });
-  } else if (chernoffFace.eyebrows === DataParts.MIGRATION) {
+  } else if (chernoffFace.hair === DataParts.MIGRATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].face.hair = hair1;
       else if (voivode.migration > MigrationCompartments.LOW &&
-        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
-      else voivodeFaces[i].eyebrows = eyebrows3;
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].face.hair = hair2;
+      else voivodeFaces[i].face.hair = hair3;
     });
   }
-  else if (chernoffFace.eyebrows === DataParts.MARRIAGES) {
+  else if (chernoffFace.hair === DataParts.MARRIAGES) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].face.hair = hair1;
       else if (voivode.marriages > MarriageCompartments.LOW &&
-        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
-      else voivodeFaces[i].eyebrows = eyebrows3;
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].face.hair = hair2;
+      else voivodeFaces[i].face.hair = hair3;
     });
   }
-  else if (chernoffFace.eyebrows === DataParts.BORN) {
+  else if (chernoffFace.hair === DataParts.BORN) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].face.hair = hair1;
       else if (voivode.born > BornCompartments.LOW &&
-        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
-      else voivodeFaces[i].eyebrows = eyebrows3;
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].face.hair = hair2;
+      else voivodeFaces[i].face.hair = hair3;
     });
   }
-  else if (chernoffFace.eyebrows === DataParts.DEATHS) {
+  else if (chernoffFace.hair === DataParts.DEATHS) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].eyebrows = eyebrows1;
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].face.hair = hair1;
       else if (voivode.deaths > DeathsCompartments.LOW &&
-        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].eyebrows = eyebrows2;
-      else voivodeFaces[i].eyebrows = eyebrows3;
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].face.hair = hair2;
+      else voivodeFaces[i].face.hair = hair3;
     });
   }
 }
@@ -209,41 +210,41 @@ const generateEyebrows = () => {
 const generateHead = () => {
   if (chernoffFace.head === DataParts.POPULATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].head = head1;
+      if (voivode.population <= PopulationCompartments.LOW) voivodeFaces[i].face.head = head1;
       else if (voivode.population > PopulationCompartments.LOW &&
-        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].head = head2;
-      else voivodeFaces[i].head = head3;
+        voivode.population <= PopulationCompartments.MIDDLE) voivodeFaces[i].face.head = head2;
+      else voivodeFaces[i].face.head = head3;
     });
   } else if (chernoffFace.head === DataParts.MIGRATION) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].head = head1;
+      if (voivode.migration <= MigrationCompartments.LOW) voivodeFaces[i].face.head = head1;
       else if (voivode.migration > MigrationCompartments.LOW &&
-        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].head = head2;
-      else voivodeFaces[i].head = head3;
+        voivode.migration <= MigrationCompartments.MIDDLE) voivodeFaces[i].face.head = head2;
+      else voivodeFaces[i].face.head = head3;
     });
   }
   else if (chernoffFace.head === DataParts.MARRIAGES) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].head = head1;
+      if (voivode.marriages <= MarriageCompartments.LOW) voivodeFaces[i].face.head = head1;
       else if (voivode.marriages > MarriageCompartments.LOW &&
-        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].head = head2;
-      else voivodeFaces[i].head = head3;
+        voivode.marriages <= MarriageCompartments.MIDDLE) voivodeFaces[i].face.head = head2;
+      else voivodeFaces[i].face.head = head3;
     });
   }
   else if (chernoffFace.head === DataParts.BORN) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].head = head1;
+      if (voivode.born <= BornCompartments.LOW) voivodeFaces[i].face.head = head1;
       else if (voivode.born > BornCompartments.LOW &&
-        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].head = head2;
-      else voivodeFaces[i].head = head3;
+        voivode.born <= BornCompartments.MIDDLE) voivodeFaces[i].face.head = head2;
+      else voivodeFaces[i].face.head = head3;
     });
   }
   else if (chernoffFace.head === DataParts.DEATHS) {
     voivodesipsData.forEach((voivode, i) => {
-      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].head = head1;
+      if (voivode.deaths <= DeathsCompartments.LOW) voivodeFaces[i].face.head = head1;
       else if (voivode.deaths > DeathsCompartments.LOW &&
-        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].head = head2;
-      else voivodeFaces[i].head = head3;
+        voivode.deaths <= DeathsCompartments.MIDDLE) voivodeFaces[i].face.head = head2;
+      else voivodeFaces[i].face.head = head3;
     });
   }
 }
@@ -253,22 +254,29 @@ const setFacePart = (e: Event, part: FacePart) => {
   if (part === FacePart.EYES) chernoffFace.eyes = Number(select.value);
   else if (part === FacePart.MOUTH) chernoffFace.mouth = Number(select.value);
   else if (part === FacePart.NOSE) chernoffFace.nose = Number(select.value);
-  else if (part === FacePart.EYEBROWS) chernoffFace.eyebrows = Number(select.value);
+  else if (part === FacePart.HAIR) chernoffFace.hair = Number(select.value);
   else if (part === FacePart.HEAD) chernoffFace.head = Number(select.value);
 }
-
-
 
 onMounted(() => {
   voivodesipsData.forEach(voivode => {
     voivodeFaces.push({
       id: voivode.id,
+      symbol: voivode.symbol,
       name: voivode.name,
-      eyes: null,
-      mouth: null,
-      nose: null,
-      eyebrows: null,
-      head: null
+      points: voivode.points,
+      population: voivode.population,
+      migration: voivode.migration,
+      marriages: voivode.marriages,
+      born: voivode.born,
+      deaths: voivode.deaths,
+      face: {
+        head: null,
+        hair: null,
+        eyes: null,
+        mouth: null,
+        nose: null,
+      }
     });
   })
 });
@@ -312,8 +320,8 @@ onMounted(() => {
         </div>
 
         <div class="form-group">
-          <label for="eyebrows">Brwi:</label>
-          <select v-on:change="(e) => setFacePart(e, FacePart.EYEBROWS)" id="eyebrows" name="eyebrows">
+          <label for="hair">Brwi:</label>
+          <select v-on:change="(e) => setFacePart(e, FacePart.HAIR)" id="hair" name="hair">
             <option v-bind:value="DataParts.POPULATION">Populacja</option>
             <option v-bind:value="DataParts.MIGRATION">Migracja</option>
             <option v-bind:value="DataParts.MARRIAGES">Małżeństwa</option>

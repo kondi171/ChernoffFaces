@@ -2,7 +2,7 @@
 import { watch } from 'vue';
 import { useAppStore } from '../stores/app';
 import { DataParts } from '../ts/enums';
-
+import polandData from './../data/poland.json';
 // import eyes1 from './../assets/img/faces/test/eyes1.png';
 // import eyes2 from './../assets/img/faces/test/eyes2.png';
 // import eyes3 from './../assets/img/faces/test/eyes3.png';
@@ -33,27 +33,23 @@ watch(chernoffFace, () => {
   <section class="stats">
     <div class="card">
       <h2>Populacja</h2>
-      <!-- <div class="info">
-            <img :src="eyes1" alt="eyes1">
-            <span>>= 200000</span>
-          </div> -->
-      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
+      <p>W Polsce populacja oszacowana jest na <strong>{{ polandData.population }}</strong></p>
     </div>
     <div class="card">
       <h2>Migracja</h2>
-      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
+      <p>Migracja w Polsce szacuje się na <strong>{{ polandData.migration }}</strong> osób</p>
     </div>
     <div class="card">
       <h2>Małżeństwa</h2>
-      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
+      <p>W Polsce rocznie zawiera się średnio <strong>{{ polandData.marriages }}</strong> małżeństw.</p>
     </div>
     <div class="card">
       <h2>Urodzenia</h2>
-      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
+      <p>W Polsce rocznie przychodzi na świat około <strong>{{ polandData.born }}</strong> dzieci.</p>
     </div>
     <div class="card">
       <h2>Zgony</h2>
-      <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
+      <p>W Polsce rocznie odnotowuje się średnio <strong>{{ polandData.deaths }}</strong> zgonów.</p>
     </div>
   </section>
 </template>
@@ -96,18 +92,12 @@ watch(chernoffFace, () => {
     p {
       color: $bgColor;
       text-align: center;
-    }
+      font-size: 2vmin;
+      text-shadow: 1px 1px 0 $darkColor;
 
-    .info {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: $bgColor;
-      // background-color: red;
-
-      img {
-        width: 100%;
-        // background-color: #fff;
+      strong {
+        color: $secondaryColor;
+        font-size: 2.2vmin;
       }
     }
   }

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import voivodeshipsData from './../data/voivodeships.json';
 import Modal from './Modal.vue';
 import { useAppStore } from '../stores/app';
 
@@ -16,9 +15,21 @@ const handleTitleVisible = (e: MouseEvent, voivodeshipName: string) => {
   title.style.left = `${e.clientX}px`;
   title.style.top = `${e.clientY}px`;
   title.innerText = voivodeshipName;
+
+  const element = e.target as HTMLElement;
+  const symbol = element.getAttribute('data-symbol');
+  const voivodeships = document.querySelectorAll('.voivodeship');
+  const activeVoivodeship = [...voivodeships].filter(voivodeship => {
+    return voivodeship.getAttribute('data-symbol') == symbol;
+  });
+  activeVoivodeship[0].classList.add('active');
 }
 
 const handleTitleInvisible = () => {
+  const voivodeships = document.querySelectorAll('.voivodeship');
+  voivodeships.forEach(voivodeship => {
+    voivodeship.classList.remove('active');
+  })
   const title = document.getElementById('title') as HTMLSpanElement;
   title.style.transform = 'scale(0)';
 }
@@ -38,20 +49,19 @@ const handleCloseModal = () => {
   <section>
     <div class="map-wrapper">
       <svg class="map" id="map" viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
+
         <path v-on:mouseover="(e) => handleTitleVisible(e, voivodeship.name)"
           v-on:mouseleave="() => handleTitleInvisible()" v-on:click="() => handleModal(voivodeship)" class="voivodeship"
-          v-for="voivodeship in voivodeshipsData" :key="voivodeship.id" :d="voivodeship.points"
-          :symbol="voivodeship.symbol">
+          v-for="voivodeship in voivodeFaces" :key="voivodeship.id" :d="voivodeship.points"
+          v-bind:data-symbol="voivodeship.symbol">
         </path>
       </svg>
       <span id="title" class="title"></span>
       <div v-for="voivodeship in voivodeFaces" :key="voivodeship.id" v-bind:id="`POL-${voivodeship.id}`"
         class="chernoffFace">
-        <img v-bind:src="voivodeship?.head" alt="">
-        <img v-bind:src="voivodeship?.eyes" alt="">
-        <img v-bind:src="voivodeship?.mouth" alt="">
-        <img v-bind:src="voivodeship?.nose" alt="">
-        <img v-bind:src="voivodeship?.eyebrows" alt="">
+        <img v-for="face in voivodeship.face" v-on:mouseover="(e) => handleTitleVisible(e, voivodeship.name)"
+          v-on:mouseleave="() => handleTitleInvisible()" v-on:click="() => handleModal(voivodeship)" v-bind:src="face"
+          :data-symbol="voivodeship.symbol" alt="">
       </div>
     </div>
     <Modal v-bind:modalVisible="modalVisible" v-bind:voivodeship="voivodeshipData" v-bind:closeModal="handleCloseModal" />
@@ -79,6 +89,8 @@ section {
     .map {
       width: 100%;
       height: 100%;
+      min-width: 700px;
+      min-height: 700px;
       fill: $darkColor;
       stroke: $secondaryColor;
       stroke-linecap: round;
@@ -94,12 +106,26 @@ section {
         fill: $secondaryColor;
         cursor: pointer;
       }
+
+      &.active {
+        fill: $secondaryColor;
+        cursor: pointer;
+      }
     }
 
     .chernoffFace {
       img {
         position: absolute;
         transform: scale(.7);
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:hover .voivodeship {
+          fill: $secondaryColor;
+          cursor: pointer;
+        }
       }
 
       &#POL-0,
@@ -119,11 +145,13 @@ section {
       &#POL-14,
       &#POL-15 {
         position: absolute;
+
       }
 
       &#POL-0 {
         top: 90px;
         left: 420px;
+
       }
 
       &#POL-1 {
@@ -218,6 +246,7 @@ section {
     font-size: 2vmin;
     font-weight: bold;
     border: 2px solid $darkColor;
+    z-index: 100;
   }
 }
 </style>
