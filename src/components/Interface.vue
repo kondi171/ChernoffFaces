@@ -1,36 +1,33 @@
 <script setup lang="ts">
 import { FacePart, DataParts, PopulationCompartments, MigrationCompartments, MarriageCompartments, BornCompartments, DeathsCompartments } from './../ts/enums';
-import { VoivodeFace } from './../ts/types';
 
 import voivodesipsData from './../data/voivodeships.json';
 
-import eyes1 from './../assets/img/faces/test/eyes1.png';
-import eyes2 from './../assets/img/faces/test/eyes2.png';
-import eyes3 from './../assets/img/faces/test/eyes3.png';
+import eyes1 from './../assets/img/faces/eyes1.png';
+import eyes2 from './../assets/img/faces/eyes2.png';
+import eyes3 from './../assets/img/faces/eyes3.png';
 
-import mouth1 from './../assets/img/faces/test/mouth1.png';
-import mouth2 from './../assets/img/faces/test/mouth2.png';
-import mouth3 from './../assets/img/faces/test/mouth3.png';
+import mouth1 from './../assets/img/faces/mouth1.png';
+import mouth2 from './../assets/img/faces/mouth2.png';
+import mouth3 from './../assets/img/faces/mouth3.png';
 
-import nose1 from './../assets/img/faces/test/nose1.png';
-import nose2 from './../assets/img/faces/test/nose2.png';
-import nose3 from './../assets/img/faces/test/nose3.png';
+import nose1 from './../assets/img/faces/nose1.png';
+import nose2 from './../assets/img/faces/nose2.png';
+import nose3 from './../assets/img/faces/nose3.png';
 
-import eyebrows1 from './../assets/img/faces/test/eyebrows1.png';
-import eyebrows2 from './../assets/img/faces/test/eyebrows2.png';
-import eyebrows3 from './../assets/img/faces/test/eyebrows3.png';
+import eyebrows1 from './../assets/img/faces/hair1.png';
+import eyebrows2 from './../assets/img/faces/hair2.png';
+import eyebrows3 from './../assets/img/faces/hair3.png';
 
-import head1 from './../assets/img/faces/test/head1.png';
-import head2 from './../assets/img/faces/test/head2.png';
-import head3 from './../assets/img/faces/test/head3.png';
+import head1 from './../assets/img/faces/head1.png';
+import head2 from './../assets/img/faces/head2.png';
+import head3 from './../assets/img/faces/head3.png';
 
 import { useAppStore } from '../stores/app';
-import { reactive, onMounted } from 'vue';
+import { onMounted } from 'vue';
 
 const appStore = useAppStore();
-const { chernoffFace } = appStore;
-
-const voivodeFaces = reactive<VoivodeFace[]>([]);
+const { chernoffFace, voivodeFaces } = appStore;
 
 const generateChernoffFaces = (e: MouseEvent) => {
   e.preventDefault();
@@ -39,7 +36,7 @@ const generateChernoffFaces = (e: MouseEvent) => {
   generateNose();
   generateEyebrows();
   generateHead();
-  console.log(voivodeFaces);
+  // console.log(voivodeFaces);
 }
 const generateEyes = () => {
   if (chernoffFace.eyes === DataParts.POPULATION) {
@@ -338,13 +335,7 @@ onMounted(() => {
 
         <button v-on:click="(e) => generateChernoffFaces(e)">Generuj Twarze</button>
       </form>
-      <div class="chernoffFace">
-        <img v-bind:src="voivodeFaces[7]?.eyes" alt="">
-        <img v-bind:src="voivodeFaces[7]?.mouth" alt="">
-        <img v-bind:src="voivodeFaces[7]?.nose" alt="">
-        <img v-bind:src="voivodeFaces[7]?.eyebrows" alt="">
-        <img v-bind:src="voivodeFaces[7]?.head" alt="">
-      </div>
+
 
     </div>
   </section>
@@ -359,16 +350,6 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .chernoffFace {
-    position: relative;
-
-    img {
-      position: absolute;
-      top: -100px;
-      left: 100px;
-    }
-  }
 
   .configure-box {
     background-color: $secondaryColor;

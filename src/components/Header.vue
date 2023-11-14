@@ -2,7 +2,8 @@
 </script>
 <template>
   <header>
-    <h1>Twarze Chernoffa</h1>
+    <h1>Twarze Chernoffa - Statystyka Danych Demograficznych</h1>
+    <p>Aktualizacja danych: 30.06.2023</p>
   </header>
 </template>
 
@@ -17,15 +18,20 @@ header {
   height: 8vh;
   display: flex;
   align-items: center;
-}
+  justify-content: space-between;
 
+  h1 {
+    color: $primaryColor;
+    padding: 1vmin;
+    margin-left: 3vmin;
+    font-size: 5vmin;
+    font-family: $fontDecorative;
+    letter-spacing: 2px;
+  }
 
-h1 {
-  color: $primaryColor;
-  padding: 1vmin;
-  margin-left: 3vmin;
-  font-size: 5vmin;
-  font-family: $fontDecorative;
-  letter-spacing: 2px;
+  p {
+    color: $bgColor;
+    margin-right: 3vmin;
+  }
 }
 </style>

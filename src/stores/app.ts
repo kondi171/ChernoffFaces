@@ -1,6 +1,6 @@
 import { ref, reactive } from 'vue';
 import { defineStore } from 'pinia';
-import { ChernoffFace } from './../ts/types';
+import { ChernoffFace, VoivodeFace } from './../ts/types';
 import { DataParts } from '../ts/enums';
 export const useAppStore = defineStore('app', () => {
   const chernoffFace = reactive<ChernoffFace>({
@@ -10,8 +10,9 @@ export const useAppStore = defineStore('app', () => {
     eyebrows: DataParts.BORN,
     head: DataParts.DEATHS
   });
-
+  const voivodeFaces = reactive<VoivodeFace[]>([]);
   return {
     chernoffFace,
+    voivodeFaces,
   }
 });

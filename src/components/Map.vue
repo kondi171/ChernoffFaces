@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import voivodeshipsData from './../data/voivodeships.json';
 import Modal from './Modal.vue';
 import { useAppStore } from '../stores/app';
 
 const appStore = useAppStore();
-const { chernoffFace, isFaceGenerated } = appStore;
+const { voivodeFaces } = appStore;
 
 const modalVisible = ref(false);
 const voivodeshipData = ref<any>(null);
@@ -32,8 +32,6 @@ const handleCloseModal = () => {
   modalVisible.value = false;
 }
 
-
-
 </script>
 
 <template>
@@ -42,12 +40,22 @@ const handleCloseModal = () => {
       <svg class="map" id="map" viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
         <path v-on:mouseover="(e) => handleTitleVisible(e, voivodeship.name)"
           v-on:mouseleave="() => handleTitleInvisible()" v-on:click="() => handleModal(voivodeship)" class="voivodeship"
-          v-for="voivodeship in voivodeshipsData" :d="voivodeship.points" :symbol="voivodeship.symbol">
+          v-for="voivodeship in voivodeshipsData" :key="voivodeship.id" :d="voivodeship.points"
+          :symbol="voivodeship.symbol">
         </path>
       </svg>
       <span id="title" class="title"></span>
+      <div v-for="voivodeship in voivodeFaces" :key="voivodeship.id" v-bind:id="`POL-${voivodeship.id}`"
+        class="chernoffFace">
+        <img v-bind:src="voivodeship?.head" alt="">
+        <img v-bind:src="voivodeship?.eyes" alt="">
+        <img v-bind:src="voivodeship?.mouth" alt="">
+        <img v-bind:src="voivodeship?.nose" alt="">
+        <img v-bind:src="voivodeship?.eyebrows" alt="">
+      </div>
     </div>
     <Modal v-bind:modalVisible="modalVisible" v-bind:voivodeship="voivodeshipData" v-bind:closeModal="handleCloseModal" />
+
   </section>
 </template>
 
@@ -73,7 +81,6 @@ section {
       height: 100%;
       fill: $darkColor;
       stroke: $secondaryColor;
-      // stroke: $primaryColor;
       stroke-linecap: round;
       stroke-linejoin: round;
       stroke-width: 4px;
@@ -85,8 +92,113 @@ section {
 
       &:hover {
         fill: $secondaryColor;
-        // fill: $primaryColor;
         cursor: pointer;
+      }
+    }
+
+    .chernoffFace {
+      img {
+        position: absolute;
+        transform: scale(.7);
+      }
+
+      &#POL-0,
+      &#POL-1,
+      &#POL-2,
+      &#POL-3,
+      &#POL-4,
+      &#POL-5,
+      &#POL-6,
+      &#POL-7,
+      &#POL-8,
+      &#POL-9,
+      &#POL-10,
+      &#POL-11,
+      &#POL-12,
+      &#POL-13,
+      &#POL-14,
+      &#POL-15 {
+        position: absolute;
+      }
+
+      &#POL-0 {
+        top: 90px;
+        left: 420px;
+      }
+
+      &#POL-1 {
+        top: 50px;
+        left: 220px;
+      }
+
+      &#POL-2 {
+        top: 400px;
+        left: 110px;
+      }
+
+      &#POL-3 {
+        top: 110px;
+        left: 50px;
+      }
+
+      &#POL-4 {
+        top: 270px;
+        left: 30px;
+      }
+
+      &#POL-5 {
+        top: 280px;
+        left: 170px;
+      }
+
+      &#POL-6 {
+        top: 180px;
+        left: 260px;
+      }
+
+      &#POL-7 {
+        top: 460px;
+        left: 300px;
+      }
+
+      &#POL-8 {
+        top: 340px;
+        left: 320px;
+      }
+
+      &#POL-9 {
+        top: 240px;
+        left: 420px;
+      }
+
+      &#POL-10 {
+        top: 440px;
+        left: 420px;
+      }
+
+      &#POL-11 {
+        top: 160px;
+        left: 560px;
+      }
+
+      &#POL-12 {
+        top: 390px;
+        left: 560px;
+      }
+
+      &#POL-13 {
+        top: 540px;
+        left: 520px;
+      }
+
+      &#POL-14 {
+        top: 460px;
+        left: 210px;
+      }
+
+      &#POL-15 {
+        top: 550px;
+        left: 400px;
       }
     }
   }

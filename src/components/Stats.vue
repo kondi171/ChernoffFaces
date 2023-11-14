@@ -1,9 +1,42 @@
 <script setup lang="ts">
+import { watch } from 'vue';
+import { useAppStore } from '../stores/app';
+import { DataParts } from '../ts/enums';
+
+// import eyes1 from './../assets/img/faces/test/eyes1.png';
+// import eyes2 from './../assets/img/faces/test/eyes2.png';
+// import eyes3 from './../assets/img/faces/test/eyes3.png';
+
+// import mouth1 from './../assets/img/faces/test/mouth1.png';
+// import mouth2 from './../assets/img/faces/test/mouth2.png';
+// import mouth3 from './../assets/img/faces/test/mouth3.png';
+
+// import nose1 from './../assets/img/faces/test/nose1.png';
+// import nose2 from './../assets/img/faces/test/nose2.png';
+// import nose3 from './../assets/img/faces/test/nose3.png';
+
+// import eyebrows1 from './../assets/img/faces/test/eyebrows1.png';
+// import eyebrows2 from './../assets/img/faces/test/eyebrows2.png';
+// import eyebrows3 from './../assets/img/faces/test/eyebrows3.png';
+
+// import head1 from './../assets/img/faces/test/head1.png';
+// import head2 from './../assets/img/faces/test/head2.png';
+// import head3 from './../assets/img/faces/test/head3.png';
+
+const appStore = useAppStore();
+const { chernoffFace } = appStore;
+watch(chernoffFace, () => {
+  if (chernoffFace.eyes === DataParts.POPULATION) console.log('tak');
+});
 </script>
 <template>
   <section class="stats">
     <div class="card">
       <h2>Populacja</h2>
+      <!-- <div class="info">
+            <img :src="eyes1" alt="eyes1">
+            <span>>= 200000</span>
+          </div> -->
       <p>Wygeneruj twarze, aby zobaczyć szczegóły</p>
     </div>
     <div class="card">
@@ -63,6 +96,19 @@
     p {
       color: $bgColor;
       text-align: center;
+    }
+
+    .info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $bgColor;
+      // background-color: red;
+
+      img {
+        width: 100%;
+        // background-color: #fff;
+      }
     }
   }
 
