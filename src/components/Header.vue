@@ -2,8 +2,8 @@
 </script>
 <template>
   <header>
-    <h1>Twarze Chernoffa - Statystyka Danych Demograficznych</h1>
-    <p>Aktualizacja danych: 30.06.2023</p>
+    <h1>Statystyka Danych Demograficznych - Prognoza na lata 2031-2060</h1>
+    <p>Aktualizacja danych: 23.11.2023</p>
   </header>
 </template>
 
@@ -24,7 +24,7 @@ header {
     color: $primaryColor;
     padding: 1vmin;
     margin-left: 3vmin;
-    font-size: 5vmin;
+    font-size: 4vmin;
     font-family: $fontDecorative;
     letter-spacing: 2px;
   }
