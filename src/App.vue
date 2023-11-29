@@ -3,7 +3,7 @@ import Header from './components/Header.vue';
 import Interface from './components/Interface.vue';
 import Map from './components/Map.vue';
 import Footer from './components/Footer.vue';
-import Stats from './components/Stats.vue';
+import Panel from './components/Panel.vue';
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import Stats from './components/Stats.vue';
   <main>
     <Interface />
     <Map />
-    <Stats />
+    <Panel />
   </main>
   <Footer />
 </template>

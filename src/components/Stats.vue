@@ -58,12 +58,11 @@ watch(chernoffFace, () => {
 @import './../assets/scss/variables.scss';
 
 .stats {
-  width: 25vw;
   display: flex;
-
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
+  height: 100%;
 
   .card {
     background-color: $primaryColor;
