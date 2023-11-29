@@ -12,9 +12,9 @@ export type VoivodeFace = {
   name: string,
   points: string,
   population: number,
-  migration: number,
-  marriages: number,
-  born: number,
+  internalMigration: number,
+  externalMigration: number,
+  birth: number,
   deaths: number,
   face: {
     eyes: string | null,
@@ -24,3 +24,11 @@ export type VoivodeFace = {
     head: string | null
   },
 };
+
+export type VoivodeAverage = {
+  population: number,
+  internalMigration: number,
+  externalMigration: number,
+  birth: number,
+  deaths: number
+}

@@ -8,9 +8,9 @@ export enum FacePart {
 
 export enum DataParts {
   POPULATION,
-  MIGRATION,
-  MARRIAGES,
-  BORN,
+  INTERNAL_MIGRATION,
+  EXTERNAL_MIGRATION,
+  BIRTH,
   DEATHS
 }
 
@@ -29,7 +29,7 @@ export enum MarriageCompartments {
   MIDDLE = 4000,
 }
 
-export enum BornCompartments {
+export enum BirthCompartments {
   LOW = 5000,
   MIDDLE = 10000,
 }
