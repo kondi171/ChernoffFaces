@@ -1,59 +1,68 @@
 <script setup lang="ts">
-import { watch } from 'vue';
-import { useAppStore } from '../stores/app';
-import { DataParts } from '../ts/enums';
+import { ref } from 'vue';
 import polandData from './../data/poland.json';
-// import eyes1 from './../assets/img/faces/test/eyes1.png';
-// import eyes2 from './../assets/img/faces/test/eyes2.png';
-// import eyes3 from './../assets/img/faces/test/eyes3.png';
+const index = ref(0);
+const year = ref(2031);
 
-// import mouth1 from './../assets/img/faces/test/mouth1.png';
-// import mouth2 from './../assets/img/faces/test/mouth2.png';
-// import mouth3 from './../assets/img/faces/test/mouth3.png';
+const handleAddYear = () => {
+  if (year.value < 2060) {
+    index.value++;
+    year.value++;
+  }
+}
+const handleSubtractYear = () => {
+  if (year.value > 2031) {
+    index.value--;
+    year.value--;
+  }
+}
 
-// import nose1 from './../assets/img/faces/test/nose1.png';
-// import nose2 from './../assets/img/faces/test/nose2.png';
-// import nose3 from './../assets/img/faces/test/nose3.png';
-
-// import eyebrows1 from './../assets/img/faces/test/eyebrows1.png';
-// import eyebrows2 from './../assets/img/faces/test/eyebrows2.png';
-// import eyebrows3 from './../assets/img/faces/test/eyebrows3.png';
-
-// import head1 from './../assets/img/faces/test/head1.png';
-// import head2 from './../assets/img/faces/test/head2.png';
-// import head3 from './../assets/img/faces/test/head3.png';
-
-const appStore = useAppStore();
-const { chernoffFace } = appStore;
-watch(chernoffFace, () => {
-  if (chernoffFace.eyes === DataParts.POPULATION) console.log('tak');
-});
 </script>
 <template>
   <section class="stats">
+
     <div class="card">
-      <h2>Populacja</h2>
-      <p>W Polsce populacja oszacowana jest na <strong>{{ polandData.population }}</strong></p>
+      <h2>Migracje Wewnętrzne</h2>
+      <div class="flex">
+        <p>Migracje Wewnętrzne w Polsce zawsze wynosić będą <strong>{{ polandData.internalMigration[index] }}</strong>
+          osób.</p>
+      </div>
     </div>
     <div class="card">
-      <h2>Migracja</h2>
-      <p>Migracja w Polsce szacuje się na <strong>{{ polandData.migration }}</strong> osób</p>
-    </div>
-    <div class="card">
-      <h2>Małżeństwa</h2>
-      <p>W Polsce rocznie zawiera się średnio <strong>{{ polandData.marriages }}</strong> małżeństw.</p>
+      <h2>Migracje Zagraniczne</h2>
+      <div class="flex">
+        <p>Migracje Zagraniczne w Polsce na wybrany rok prognozowane są na <strong>{{
+          polandData.externalMigration[index]
+        }}</strong> osób.</p>
+      </div>
     </div>
     <div class="card">
       <h2>Urodzenia</h2>
-      <p>W Polsce rocznie przychodzi na świat około <strong>{{ polandData.born }}</strong> dzieci.</p>
+      <div class="flex">
+        <p>W wybranym roku w Polsce przyjdzie na świat około <strong>{{ polandData.born[index] }}</strong> dzieci.</p>
+      </div>
     </div>
     <div class="card">
       <h2>Zgony</h2>
-      <p>W Polsce rocznie odnotowuje się średnio <strong>{{ polandData.deaths }}</strong> zgonów.</p>
+      <div class="flex">
+        <p>W Polsce na dany rok odnotuje się około <strong>{{ polandData.deaths[index] }}</strong> zgonów.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Populacja</h2>
+      <div class="flex">
+        <p>W Polsce populacja na podany rok prognozowna jest na <strong>{{ polandData.population[index] }} </strong> osób.
+        </p>
+      </div>
+    </div>
+    <div class="controller">
+      <div class="btns">
+        <span>{{ year }}</span> <br />
+        <button v-on:click="handleSubtractYear">-</button> <button v-on:click="handleAddYear">+</button>
+      </div>
     </div>
   </section>
 </template>
-
 <style scoped lang="scss">
 @import './../assets/scss/variables.scss';
 
@@ -80,26 +89,73 @@ watch(chernoffFace, () => {
 
     h2 {
       font-family: $fontDecorative;
-      font-size: 3vmin;
+      font-size: 2.5vmin;
       text-align: center;
-      margin-bottom: 2vmin;
-      padding-bottom: 1vmin;
+      margin-bottom: .5vmin;
+      padding-bottom: .5vmin;
+      margin-top: -1vmin;
       color: white;
       border-bottom: 2px solid white;
     }
 
-    p {
-      color: $bgColor;
-      text-align: center;
-      font-size: 2vmin;
-      text-shadow: 1px 1px 0 $darkColor;
+    .flex {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 75%;
+      // background-color: red;
 
-      strong {
-        color: $secondaryColor;
-        font-size: 2.2vmin;
+      p {
+        color: $bgColor;
+        text-align: center;
+        font-size: 1.8vmin;
+        text-shadow: 1px 1px 0 $darkColor;
+
+        strong {
+          color: $secondaryColor;
+          font-size: 2.2vmin;
+        }
+      }
+    }
+
+
+  }
+
+  .controller {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    background-image: none;
+    width: 45%;
+    height: 30%;
+
+    .btns {
+      button {
+        width: 7vmin;
+        height: 7vmin;
+        font-size: 6vmin;
+        background-color: $darkColor;
+        border: 2px solid lighten($darkColor, 10%);
+        border-radius: 1vmin;
+        color: $bgColor;
+        transition-duration: .4s;
+
+        &:hover {
+          cursor: pointer;
+          background-color: $primaryColor;
+          transform: scale(1.1);
+        }
+      }
+
+      span {
+        color: $darkColor;
+        font-size: 8vmin;
+        font-weight: bold;
       }
     }
   }
-
 }
 </style>

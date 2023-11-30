@@ -18,99 +18,137 @@ import hair3 from './../assets/img/faces/hair3.png';
 import head1 from './../assets/img/faces/head1.png';
 import head2 from './../assets/img/faces/head2.png';
 import head3 from './../assets/img/faces/head3.png';
+import { DataParts } from '../ts/enums';
+import { useAppStore } from '../stores/app';
 
-const handleExpandData = (e: MouseEvent) => {
-  const cards = document.querySelectorAll('.cardWrapper');
+
+const appStore = useAppStore();
+const { chernoffFace, polandCompartments } = appStore;
+
+const handleExpandData = (id: DataParts) => {
+  const cards = document.querySelectorAll('.clickInfo + .cardWrapper');
+  const clickedInfos = document.querySelectorAll('.clickInfo');
+  clickedInfos.forEach(info => info.classList.remove('clicked'));
   cards.forEach(card => card.classList.remove('expanded'));
-  e.target.nextElementSibling.classList.add('expanded');
-}
+
+  const clickedCard = document.querySelector(`.cardWrapper[data-id="${id}"]`);
+  const clickedInfo = document.querySelector(`.clickInfo[data-id="${id}"]`);
+  if (clickedCard) {
+    clickedCard.classList.add('expanded');
+    clickedInfo?.classList.add('clicked');
+  }
+};
 
 </script>
 <template>
   <section class="legend">
     <div class="data">
-      <h3 v-on:click="e => handleExpandData(e)">Populacja - Oczy</h3>
-      <div class="cardWrapper">
+      <h3>{{ chernoffFace.eyes }} - Oczy</h3>
+      <div :data-id="DataParts.POPULATION" v-on:click="() => handleExpandData(DataParts.POPULATION)" class="clickInfo">
+        <span>Kliknij aby rozwinąć!</span>
+        <font-awesome-icon class="data-icon" icon="angles-down" />
+      </div>
+      <div :data-id="DataParts.POPULATION" class="cardWrapper">
         <div class="card">
           <img :src="eyes1" alt="">
-          <span>2 000 000</span>
+          <span> &le; {{ polandCompartments.eyes.first }}</span>
         </div>
         <div class="card">
           <img :src="eyes2" alt="">
-          <span>4 000 000</span>
+          <span>&le; {{ polandCompartments.eyes.second }}</span>
         </div>
         <div class="card">
           <img :src="eyes3" alt="">
-          <span>6 000 000</span>
+          <span>&gt; {{ polandCompartments.eyes.second }}</span>
         </div>
       </div>
     </div>
     <div class="data">
-      <h3 v-on:click="e => handleExpandData(e)">Migracja Wewnętrzna - Usta</h3>
-      <div class="cardWrapper">
+      <h3>{{ chernoffFace.mouth }} - Usta</h3>
+      <div :data-id="DataParts.INTERNAL_MIGRATION" v-on:click="() => handleExpandData(DataParts.INTERNAL_MIGRATION)"
+        class="clickInfo">
+        <span>Kliknij aby rozwinąć!</span>
+        <font-awesome-icon class="data-icon" icon="angles-down" />
+      </div>
+      <div :data-id="DataParts.INTERNAL_MIGRATION" class="cardWrapper">
         <div class="card">
           <img :src="mouth1" alt="">
-          <span>2 000 000</span>
+          <span> &le; -703</span>
+          <!-- <span> &le; {{ polandCompartments.mouth.first }}</span> -->
         </div>
         <div class="card">
           <img :src="mouth2" alt="">
-          <span>4 000 000</span>
+          <span>&le; 1405</span>
+          <!-- <span>&le; {{ polandCompartments.mouth.second }}</span> -->
         </div>
         <div class="card">
           <img :src="mouth3" alt="">
-          <span>6 000 000</span>
+          <span>&gt; 1405</span>
+          <!-- <span>&gt; {{ polandCompartments.mouth.second }}</span> -->
         </div>
       </div>
     </div>
     <div class="data">
-      <h3 v-on:click="e => handleExpandData(e)">Migracja Zewnętrzna - Nos</h3>
-      <div class="cardWrapper">
+      <h3>{{ chernoffFace.nose }} - Nos</h3>
+      <div :data-id="DataParts.EXTERNAL_MIGRATION" v-on:click="() => handleExpandData(DataParts.EXTERNAL_MIGRATION)"
+        class="clickInfo">
+        <span>Kliknij aby rozwinąć!</span>
+        <font-awesome-icon class="data-icon" icon="angles-down" />
+      </div>
+      <div :data-id="DataParts.EXTERNAL_MIGRATION" class="cardWrapper">
         <div class="card">
           <img :src="nose1" alt="">
-          <span>2 000 000</span>
+          <span> &le; {{ polandCompartments.nose.first }}</span>
         </div>
         <div class="card">
           <img :src="nose2" alt="">
-          <span>4 000 000</span>
+          <span>&le; {{ polandCompartments.nose.second }}</span>
         </div>
         <div class="card">
           <img :src="nose3" alt="">
-          <span>6 000 000</span>
+          <span>&gt; {{ polandCompartments.nose.second }}</span>
         </div>
       </div>
     </div>
     <div class="data">
-      <h3 v-on:click="e => handleExpandData(e)">Urodzenia - Włosy</h3>
-      <div class="cardWrapper">
+      <h3>{{ chernoffFace.hair }} - Włosy</h3>
+      <div :data-id="DataParts.BIRTH" v-on:click="() => handleExpandData(DataParts.BIRTH)" class="clickInfo">
+        <span>Kliknij aby rozwinąć!</span>
+        <font-awesome-icon class="data-icon" icon="angles-down" />
+      </div>
+      <div :data-id="DataParts.BIRTH" class="cardWrapper">
         <div class="card">
           <img :src="hair1" alt="">
-          <span>2 000 000</span>
+          <span> &le; {{ polandCompartments.hair.first }}</span>
         </div>
         <div class="card">
           <img :src="hair2" alt="">
-          <span>4 000 000</span>
+          <span>&le; {{ polandCompartments.hair.second }}</span>
         </div>
         <div class="card">
           <img :src="hair3" alt="">
-          <span>6 000 000</span>
+          <span>&gt; {{ polandCompartments.hair.second }}</span>
         </div>
       </div>
     </div>
-
     <div class="data">
-      <h3 v-on:click="e => handleExpandData(e)">Zgony - Głowa</h3>
-      <div class="cardWrapper">
+      <h3>{{ chernoffFace.head }} - Głowa</h3>
+      <div :data-id="DataParts.DEATHS" v-on:click="() => handleExpandData(DataParts.DEATHS)" class="clickInfo">
+        <span>Kliknij aby rozwinąć!</span>
+        <font-awesome-icon class="data-icon" icon="angles-down" />
+      </div>
+      <div :data-id="DataParts.DEATHS" class="cardWrapper">
         <div class="card">
           <img :src="head1" alt="">
-          <span>2 000 000</span>
+          <span> &le; {{ polandCompartments.head.first }}</span>
         </div>
         <div class="card">
           <img :src="head2" alt="">
-          <span>4 000 000</span>
+          <span>&le; {{ polandCompartments.head.second }}</span>
         </div>
         <div class="card">
           <img :src="head3" alt="">
-          <span>6 000 000</span>
+          <span>&gt; {{ polandCompartments.head.second }}</span>
         </div>
       </div>
     </div>
@@ -127,10 +165,34 @@ const handleExpandData = (e: MouseEvent) => {
   height: 70vh;
   margin-top: 1vmin;
 
+  &.disabled {
+    color: red;
+  }
+
+  .clickInfo {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 1vmin;
+    color: $bgColor;
+    transition-duration: .4s;
+    font-size: 2vmin;
+
+    &:hover {
+      color: $secondaryColor;
+      letter-spacing: 2px;
+      cursor: pointer;
+    }
+
+    &.clicked {
+      display: none;
+    }
+  }
+
   .data {
     width: 100%;
     background-color: $primaryColor;
-    padding-bottom: 2vmin;
+    padding-bottom: 1vmin;
     border: .4vmin solid $darkColor;
 
     h3 {
@@ -141,12 +203,6 @@ const handleExpandData = (e: MouseEvent) => {
       font-size: 3vmin;
       width: 100%;
       border-radius: .2vmin;
-      transition-duration: .4s;
-
-      &:hover {
-        color: $secondaryColor;
-        cursor: pointer;
-      }
     }
 
     .cardWrapper {

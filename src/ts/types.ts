@@ -1,9 +1,9 @@
 export type ChernoffFace = {
-  eyes: number,
-  mouth: number,
-  nose: number,
-  hair: number,
-  head: number
+  eyes: string,
+  mouth: string,
+  nose: string,
+  hair: string,
+  head: string
 }
 
 export type VoivodeFace = {

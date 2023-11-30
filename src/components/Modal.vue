@@ -21,15 +21,15 @@ const { voivodeFaces } = appStore;
             </li>
             <li>
               <font-awesome-icon class="data-icon" icon="suitcase-rolling" />
-              Migracja: <strong>{{ voivodeship.migration }}</strong>
+              Migracje Wewnętrzne: <strong>{{ voivodeship.internalMigration }}</strong>
             </li>
             <li>
-              <font-awesome-icon class="data-icon" icon="children" />
-              Małżeństwa: <strong>{{ voivodeship.marriages }}</strong>
+              <font-awesome-icon class="data-icon" icon="cart-flatbed-suitcase" />
+              Migracje Zagraniczne: <strong>{{ voivodeship.externalMigration }}</strong>
             </li>
             <li>
               <font-awesome-icon class="data-icon" icon="baby-carriage" />
-              Urodzenia: <strong>{{ voivodeship.born }}</strong>
+              Urodzenia: <strong>{{ voivodeship.birth }}</strong>
             </li>
             <li>
               <font-awesome-icon class="data-icon" icon="skull" />
