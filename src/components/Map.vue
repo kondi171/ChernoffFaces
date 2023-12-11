@@ -4,7 +4,7 @@ import Modal from './Modal.vue';
 import { useAppStore } from '../stores/app';
 
 const appStore = useAppStore();
-const { voivodeFaces } = appStore;
+const { voivodeshipsData } = appStore;
 
 const modalVisible = ref(false);
 const voivodeshipData = ref<any>(null);
@@ -52,12 +52,12 @@ const handleCloseModal = () => {
 
         <path v-on:mouseover="(e) => handleTitleVisible(e, voivodeship.name)"
           v-on:mouseleave="() => handleTitleInvisible()" v-on:click="() => handleModal(voivodeship)" class="voivodeship"
-          v-for="voivodeship in voivodeFaces" :key="voivodeship.id" :d="voivodeship.points"
+          v-for="voivodeship in voivodeshipsData" :key="voivodeship.id" :d="voivodeship.points"
           v-bind:data-symbol="voivodeship.symbol">
         </path>
       </svg>
       <span id="title" class="title"></span>
-      <div v-for="voivodeship in voivodeFaces" :key="voivodeship.id" v-bind:id="`POL-${voivodeship.id}`"
+      <div v-for="voivodeship in voivodeshipsData" :key="voivodeship.id" v-bind:id="`POL-${voivodeship.id}`"
         class="chernoffFace">
         <img v-for="face in voivodeship.face" v-on:mouseover="(e) => handleTitleVisible(e, voivodeship.name)"
           v-on:mouseleave="() => handleTitleInvisible()" v-on:click="() => handleModal(voivodeship)" v-bind:src="face"

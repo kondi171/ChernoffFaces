@@ -2,6 +2,6 @@ export enum DataParts {
   POPULATION = "Populacja",
   INTERNAL_MIGRATION = "Migracje Wewnętrzne",
   EXTERNAL_MIGRATION = "Migracje Zagraniczne",
-  BIRTH = "Urodzenia",
+  BIRTHS = "Urodzenia",
   DEATHS = "Zgony"
 }

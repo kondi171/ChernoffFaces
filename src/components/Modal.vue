@@ -4,7 +4,7 @@ import { useAppStore } from '../stores/app';
 
 const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', 'voivodeship', 'closeModal']);
 const appStore = useAppStore();
-const { voivodeFaces } = appStore;
+const { voivodeshipsStats } = appStore;
 
 </script>
 <template>
@@ -17,7 +17,7 @@ const { voivodeFaces } = appStore;
           <ul>
             <li>
               <font-awesome-icon class="data-icon" icon="people-group" />
-              Popuacja: <strong>{{ voivodeship.population }}</strong>
+              Popuacja: <strong>{{ voivodeshipsStats.average[voivodeship.id].population }}</strong>
             </li>
             <li>
               <font-awesome-icon class="data-icon" icon="suitcase-rolling" />
@@ -38,7 +38,7 @@ const { voivodeFaces } = appStore;
           </ul>
         </div>
 
-        <div class="chernoff-face">
+        <!-- <div class="chernoff-face">
           <h3>Wygenerowana Twarz Chernoffa:</h3>
           <svg class="map" id="map" viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
             <path v-for="voivodeshipFace in voivodeFaces"
@@ -53,18 +53,13 @@ const { voivodeFaces } = appStore;
               Twarze Chernoffa nie zostały jeszcze wygenerowane!
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       <font-awesome-icon v-on:click="closeModal" icon="fa-solid fa-x" class="icon" />
     </div>
   </div>
 </template>
-<!--<div v-if="voivodeFaces?.face" class="img-container">
-       <img src="./../assets/img/map.png" alt="Chernoff Faces">
-      </div>
-      <div v-else class="not-generated">
-        Twarze Chernoffa nie zostały jeszcze wygenerowane!
-    </div>  -->
+
 <style scoped lang="scss">
 @import './../assets/scss/variables.scss';
 

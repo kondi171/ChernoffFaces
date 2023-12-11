@@ -18,8 +18,10 @@ import hair3 from './../assets/img/faces/hair3.png';
 import head1 from './../assets/img/faces/head1.png';
 import head2 from './../assets/img/faces/head2.png';
 import head3 from './../assets/img/faces/head3.png';
+
 import { DataParts } from '../ts/enums';
 import { useAppStore } from '../stores/app';
+import LegendPart from './reusable/LegendPart.vue';
 
 
 const appStore = useAppStore();
@@ -42,116 +44,25 @@ const handleExpandData = (id: DataParts) => {
 </script>
 <template>
   <section class="legend">
-    <div class="data">
-      <h3>{{ chernoffFace.eyes }} - Oczy</h3>
-      <div :data-id="DataParts.POPULATION" v-on:click="() => handleExpandData(DataParts.POPULATION)" class="clickInfo">
-        <span>Kliknij aby rozwinąć!</span>
-        <font-awesome-icon class="data-icon" icon="angles-down" />
-      </div>
-      <div :data-id="DataParts.POPULATION" class="cardWrapper">
-        <div class="card">
-          <img :src="eyes1" alt="">
-          <span> &le; {{ polandCompartments.eyes.first }}</span>
-        </div>
-        <div class="card">
-          <img :src="eyes2" alt="">
-          <span>&le; {{ polandCompartments.eyes.second }}</span>
-        </div>
-        <div class="card">
-          <img :src="eyes3" alt="">
-          <span>&gt; {{ polandCompartments.eyes.second }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="data">
-      <h3>{{ chernoffFace.mouth }} - Usta</h3>
-      <div :data-id="DataParts.INTERNAL_MIGRATION" v-on:click="() => handleExpandData(DataParts.INTERNAL_MIGRATION)"
-        class="clickInfo">
-        <span>Kliknij aby rozwinąć!</span>
-        <font-awesome-icon class="data-icon" icon="angles-down" />
-      </div>
-      <div :data-id="DataParts.INTERNAL_MIGRATION" class="cardWrapper">
-        <div class="card">
-          <img :src="mouth1" alt="">
-          <span> &le; -703</span>
-          <!-- <span> &le; {{ polandCompartments.mouth.first }}</span> -->
-        </div>
-        <div class="card">
-          <img :src="mouth2" alt="">
-          <span>&le; 1405</span>
-          <!-- <span>&le; {{ polandCompartments.mouth.second }}</span> -->
-        </div>
-        <div class="card">
-          <img :src="mouth3" alt="">
-          <span>&gt; 1405</span>
-          <!-- <span>&gt; {{ polandCompartments.mouth.second }}</span> -->
-        </div>
-      </div>
-    </div>
-    <div class="data">
-      <h3>{{ chernoffFace.nose }} - Nos</h3>
-      <div :data-id="DataParts.EXTERNAL_MIGRATION" v-on:click="() => handleExpandData(DataParts.EXTERNAL_MIGRATION)"
-        class="clickInfo">
-        <span>Kliknij aby rozwinąć!</span>
-        <font-awesome-icon class="data-icon" icon="angles-down" />
-      </div>
-      <div :data-id="DataParts.EXTERNAL_MIGRATION" class="cardWrapper">
-        <div class="card">
-          <img :src="nose1" alt="">
-          <span> &le; {{ polandCompartments.nose.first }}</span>
-        </div>
-        <div class="card">
-          <img :src="nose2" alt="">
-          <span>&le; {{ polandCompartments.nose.second }}</span>
-        </div>
-        <div class="card">
-          <img :src="nose3" alt="">
-          <span>&gt; {{ polandCompartments.nose.second }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="data">
-      <h3>{{ chernoffFace.hair }} - Włosy</h3>
-      <div :data-id="DataParts.BIRTH" v-on:click="() => handleExpandData(DataParts.BIRTH)" class="clickInfo">
-        <span>Kliknij aby rozwinąć!</span>
-        <font-awesome-icon class="data-icon" icon="angles-down" />
-      </div>
-      <div :data-id="DataParts.BIRTH" class="cardWrapper">
-        <div class="card">
-          <img :src="hair1" alt="">
-          <span> &le; {{ polandCompartments.hair.first }}</span>
-        </div>
-        <div class="card">
-          <img :src="hair2" alt="">
-          <span>&le; {{ polandCompartments.hair.second }}</span>
-        </div>
-        <div class="card">
-          <img :src="hair3" alt="">
-          <span>&gt; {{ polandCompartments.hair.second }}</span>
-        </div>
-      </div>
-    </div>
-    <div class="data">
-      <h3>{{ chernoffFace.head }} - Głowa</h3>
-      <div :data-id="DataParts.DEATHS" v-on:click="() => handleExpandData(DataParts.DEATHS)" class="clickInfo">
-        <span>Kliknij aby rozwinąć!</span>
-        <font-awesome-icon class="data-icon" icon="angles-down" />
-      </div>
-      <div :data-id="DataParts.DEATHS" class="cardWrapper">
-        <div class="card">
-          <img :src="head1" alt="">
-          <span> &le; {{ polandCompartments.head.first }}</span>
-        </div>
-        <div class="card">
-          <img :src="head2" alt="">
-          <span>&le; {{ polandCompartments.head.second }}</span>
-        </div>
-        <div class="card">
-          <img :src="head3" alt="">
-          <span>&gt; {{ polandCompartments.head.second }}</span>
-        </div>
-      </div>
-    </div>
+    <LegendPart @click="handleExpandData(DataParts.POPULATION)" :title="chernoffFace.eyes" name="Oczy"
+      :part="DataParts.POPULATION" :img="[eyes1, eyes2, eyes3]"
+      :data="[polandCompartments.eyes.lower, polandCompartments.eyes.upper]" />
+
+    <LegendPart @click="handleExpandData(DataParts.INTERNAL_MIGRATION)" :title="chernoffFace.mouth" name="Usta"
+      :part="DataParts.INTERNAL_MIGRATION" :img="[mouth1, mouth2, mouth3]"
+      :data="[polandCompartments.mouth.lower, polandCompartments.mouth.upper]" />
+
+    <LegendPart @click="handleExpandData(DataParts.EXTERNAL_MIGRATION)" :title="chernoffFace.nose" name="Nos"
+      :part="DataParts.EXTERNAL_MIGRATION" :img="[nose1, nose2, nose3]"
+      :data="[polandCompartments.nose.lower, polandCompartments.nose.upper]" />
+
+    <LegendPart @click="handleExpandData(DataParts.BIRTHS)" :title="chernoffFace.hair" name="Włosy"
+      :part="DataParts.BIRTHS" :img="[hair1, hair2, hair3]"
+      :data="[polandCompartments.hair.lower, polandCompartments.hair.upper]" />
+
+    <LegendPart @click="handleExpandData(DataParts.DEATHS)" :title="chernoffFace.head" name="Głowa"
+      :part="DataParts.DEATHS" :img="[head1, head2, head3]"
+      :data="[polandCompartments.head.lower, polandCompartments.head.upper]" />
   </section>
 </template>
 
@@ -165,76 +76,5 @@ const handleExpandData = (id: DataParts) => {
   height: 70vh;
   margin-top: 1vmin;
 
-  &.disabled {
-    color: red;
-  }
-
-  .clickInfo {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    margin-top: 1vmin;
-    color: $bgColor;
-    transition-duration: .4s;
-    font-size: 2vmin;
-
-    &:hover {
-      color: $secondaryColor;
-      letter-spacing: 2px;
-      cursor: pointer;
-    }
-
-    &.clicked {
-      display: none;
-    }
-  }
-
-  .data {
-    width: 100%;
-    background-color: $primaryColor;
-    padding-bottom: 1vmin;
-    border: .4vmin solid $darkColor;
-
-    h3 {
-      text-align: center;
-      color: $primaryColor;
-      background-color: $darkColor;
-      padding: 1vmin;
-      font-size: 3vmin;
-      width: 100%;
-      border-radius: .2vmin;
-    }
-
-    .cardWrapper {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      width: 100%;
-      margin-top: 1vmin;
-      display: none;
-
-      &.expanded {
-        display: flex;
-      }
-
-      .card {
-        display: flex;
-        flex-direction: column;
-        flex-basis: 30%;
-
-        background-color: $secondaryColor;
-        border-radius: 1vmin;
-        border: .3vmin solid $darkColor;
-
-        span {
-          text-align: center;
-          font-size: 2vmin;
-          padding: 1vmin;
-          background-color: $darkColor;
-          color: $bgColor;
-        }
-      }
-    }
-  }
 }
 </style>

@@ -6,29 +6,24 @@ export type ChernoffFace = {
   head: string
 }
 
-export type VoivodeFace = {
-  id: number,
-  symbol: string,
-  name: string,
-  points: string,
-  population: number,
-  internalMigration: number,
-  externalMigration: number,
-  birth: number,
-  deaths: number,
-  face: {
-    eyes: string | null,
-    mouth: string | null,
-    nose: string | null,
-    hair: string | null,
-    head: string | null
-  },
-};
-
 export type VoivodeAverage = {
   population: number,
   internalMigration: number,
   externalMigration: number,
-  birth: number,
+  births: number,
   deaths: number
+}
+
+export type Stats = {
+  population: number,
+  internalMigration: number,
+  externalMigration: number,
+  births: number,
+  deaths: number
+}
+
+export type Compartment = {
+  average: number,
+  lowerCompartment: number,
+  upperCompartment: number
 }

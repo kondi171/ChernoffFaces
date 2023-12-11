@@ -1,6 +1,7 @@
 import { reactive } from 'vue';
 import { defineStore } from 'pinia';
-import { ChernoffFace, VoivodeFace, VoivodeAverage } from './../ts/types';
+import { ChernoffFace } from './../ts/types';
+import { PolandAverageCompartment, VoivodeshipData, VoivodeshipStats } from '../ts/interfaces';
 import { DataParts } from '../ts/enums';
 
 export const useAppStore = defineStore('app', () => {
@@ -8,47 +9,48 @@ export const useAppStore = defineStore('app', () => {
     eyes: DataParts.POPULATION,
     mouth: DataParts.INTERNAL_MIGRATION,
     nose: DataParts.EXTERNAL_MIGRATION,
-    hair: DataParts.BIRTH,
+    hair: DataParts.BIRTHS,
     head: DataParts.DEATHS
   });
+
   const isFacesGenerated = reactive({
     generated: false
   });
-  const voivodeFaces = reactive<VoivodeFace[]>([]);
-  const polandAverages = reactive<VoivodeAverage>({
-    population: 0,
-    internalMigration: 0,
-    externalMigration: 0,
-    birth: 0,
-    deaths: 0
+
+  const voivodeshipsData = reactive<VoivodeshipData[]>([]);
+  const voivodeshipsStats = reactive<VoivodeshipStats>({
+    average: [],
+    median: [],
+    min: [],
+    max: []
   });
   const polandCompartments = reactive({
     eyes: {
-      first: 0,
-      second: 0
+      lower: 0,
+      upper: 0
     },
     mouth: {
-      first: 0,
-      second: 0
+      lower: 0,
+      upper: 0
     },
     nose: {
-      first: 0,
-      second: 0
+      lower: 0,
+      upper: 0
     },
     hair: {
-      first: 0,
-      second: 0
+      lower: 0,
+      upper: 0
     },
     head: {
-      first: 0,
-      second: 0
+      lower: 0,
+      upper: 0
     }
   });
   return {
     chernoffFace,
-    voivodeFaces,
+    voivodeshipsData,
+    voivodeshipsStats,
     isFacesGenerated,
-    polandAverages,
     polandCompartments
   }
 });
