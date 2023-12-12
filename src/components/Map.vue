@@ -49,7 +49,6 @@ const handleCloseModal = () => {
   <section>
     <div class="map-wrapper">
       <svg class="map" id="map" viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
-
         <path v-on:mouseover="(e) => handleTitleVisible(e, voivodeship.name)"
           v-on:mouseleave="() => handleTitleInvisible()" v-on:click="() => handleModal(voivodeship)" class="voivodeship"
           v-for="voivodeship in voivodeshipsData" :key="voivodeship.id" :d="voivodeship.points"

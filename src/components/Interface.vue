@@ -4,7 +4,7 @@ import { useAppStore } from '../stores/app';
 import { onMounted, reactive } from 'vue';
 
 import { DataParts } from './../ts/enums';
-import { VoivodeAverage } from './../ts/types';
+import { Stats } from './../ts/types';
 import { VoivodeshipJSON } from './../ts/interfaces.ts';
 
 import SelectInput from './reusable/SelectInput.vue';
@@ -35,7 +35,10 @@ import head3 from './../assets/img/faces/head3.png';
 const appStore = useAppStore();
 const { chernoffFace, voivodeshipsData, voivodeshipsStats, isFacesGenerated, polandCompartments } = appStore;
 
-const voivodeshipsAverages = reactive<VoivodeAverage[]>([]);
+const voivodeshipsAverages = reactive<Stats[]>([]);
+const voivodeshipsMedians = reactive<Stats[]>([]);
+const voivodeshipsMin = reactive<Stats[]>([]);
+const voivodeshipsMax = reactive<Stats[]>([]);
 const polandAverages = reactive({
   population: 0,
   internalMigration: 0,
@@ -64,9 +67,11 @@ const generateEyes = () => {
       else voivodeshipsData[i].face.eyes = eyes3;
     }
   } else if (chernoffFace.eyes === DataParts.INTERNAL_MIGRATION) {
-    polandCompartments.eyes.lower = Math.floor(polandAverages.internalMigration * 0.33);
-    polandCompartments.eyes.upper = Math.floor(polandAverages.internalMigration * 0.66);
+    // polandCompartments.eyes.lower = Math.floor(polandAverages.internalMigration * 0.33);
+    // polandCompartments.eyes.upper = Math.floor(polandAverages.internalMigration * 0.66);
     for (let i = 0; i < voivodeshipsJSON.length; i++) {
+      polandCompartments.eyes.lower = Math.floor(voivodeshipsMin[i].internalMigration + 0.33 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
+      polandCompartments.eyes.upper = Math.floor(voivodeshipsMin[i].internalMigration + 0.66 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
       if (voivodeshipsAverages[i].internalMigration <= polandCompartments.eyes.lower) voivodeshipsData[i].face.eyes = eyes1;
       else if (voivodeshipsAverages[i].internalMigration <= polandCompartments.eyes.upper) voivodeshipsData[i].face.eyes = eyes2;
       else voivodeshipsData[i].face.eyes = eyes3;
@@ -108,9 +113,11 @@ const generateMouth = () => {
       else voivodeshipsData[i].face.mouth = mouth3;
     }
   } else if (chernoffFace.mouth === DataParts.INTERNAL_MIGRATION) {
-    polandCompartments.mouth.lower = Math.floor(polandAverages.internalMigration * 0.33);
-    polandCompartments.mouth.upper = Math.floor(polandAverages.internalMigration * 0.66);
+    // polandCompartments.mouth.lower = Math.floor(polandAverages.internalMigration * 0.33);
+    // polandCompartments.mouth.upper = Math.floor(polandAverages.internalMigration * 0.66);
     for (let i = 0; i < voivodeshipsJSON.length; i++) {
+      polandCompartments.mouth.lower = Math.floor(voivodeshipsMin[i].internalMigration + 0.33 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
+      polandCompartments.mouth.upper = Math.floor(voivodeshipsMin[i].internalMigration + 0.66 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
       if (voivodeshipsAverages[i].internalMigration <= polandCompartments.mouth.lower) voivodeshipsData[i].face.mouth = mouth1;
       else if (voivodeshipsAverages[i].internalMigration <= polandCompartments.mouth.upper) voivodeshipsData[i].face.mouth = mouth2;
       else voivodeshipsData[i].face.mouth = mouth3;
@@ -152,9 +159,11 @@ const generateNose = () => {
       else voivodeshipsData[i].face.nose = nose3;
     }
   } else if (chernoffFace.nose === DataParts.INTERNAL_MIGRATION) {
-    polandCompartments.nose.lower = Math.floor(polandAverages.internalMigration * 0.33);
-    polandCompartments.nose.upper = Math.floor(polandAverages.internalMigration * 0.66);
+    // polandCompartments.nose.lower = Math.floor(polandAverages.internalMigration * 0.33);
+    // polandCompartments.nose.upper = Math.floor(polandAverages.internalMigration * 0.66);
     for (let i = 0; i < voivodeshipsJSON.length; i++) {
+      polandCompartments.nose.lower = Math.floor(voivodeshipsMin[i].internalMigration + 0.33 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
+      polandCompartments.nose.upper = Math.floor(voivodeshipsMin[i].internalMigration + 0.66 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
       if (voivodeshipsAverages[i].internalMigration <= polandCompartments.nose.lower) voivodeshipsData[i].face.nose = nose1;
       else if (voivodeshipsAverages[i].internalMigration <= polandCompartments.nose.upper) voivodeshipsData[i].face.nose = nose2;
       else voivodeshipsData[i].face.nose = nose3;
@@ -196,9 +205,11 @@ const generateHair = () => {
       else voivodeshipsData[i].face.hair = hair3;
     }
   } else if (chernoffFace.hair === DataParts.INTERNAL_MIGRATION) {
-    polandCompartments.hair.lower = Math.floor(polandAverages.internalMigration * 0.33);
-    polandCompartments.hair.upper = Math.floor(polandAverages.internalMigration * 0.66);
+    // polandCompartments.hair.lower = Math.floor(polandAverages.internalMigration * 0.33);
+    // polandCompartments.hair.upper = Math.floor(polandAverages.internalMigration * 0.66);
     for (let i = 0; i < voivodeshipsJSON.length; i++) {
+      polandCompartments.hair.lower = Math.floor(voivodeshipsMin[i].internalMigration + 0.33 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
+      polandCompartments.hair.upper = Math.floor(voivodeshipsMin[i].internalMigration + 0.66 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
       if (voivodeshipsAverages[i].internalMigration <= polandCompartments.hair.lower) voivodeshipsData[i].face.hair = hair1;
       else if (voivodeshipsAverages[i].internalMigration <= polandCompartments.hair.upper) voivodeshipsData[i].face.hair = hair2;
       else voivodeshipsData[i].face.hair = hair3;
@@ -240,9 +251,11 @@ const generateHead = () => {
       else voivodeshipsData[i].face.head = head3;
     }
   } else if (chernoffFace.head === DataParts.INTERNAL_MIGRATION) {
-    polandCompartments.head.lower = Math.floor(polandAverages.internalMigration * 0.33);
-    polandCompartments.head.upper = Math.floor(polandAverages.internalMigration * 0.66);
+    // polandCompartments.head.lower = Math.floor(polandAverages.internalMigration * 0.33);
+    // polandCompartments.head.upper = Math.floor(polandAverages.internalMigration * 0.66);
     for (let i = 0; i < voivodeshipsJSON.length; i++) {
+      polandCompartments.head.lower = Math.floor(voivodeshipsMin[i].internalMigration + 0.33 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
+      polandCompartments.head.upper = Math.floor(voivodeshipsMin[i].internalMigration + 0.66 * (voivodeshipsMax[i].internalMigration - voivodeshipsMin[i].internalMigration));
       if (voivodeshipsAverages[i].internalMigration <= polandCompartments.head.lower) voivodeshipsData[i].face.head = head1;
       else if (voivodeshipsAverages[i].internalMigration <= polandCompartments.hair.upper) voivodeshipsData[i].face.head = head2;
       else voivodeshipsData[i].face.head = head3;
@@ -329,11 +342,43 @@ const calculateAverage = (voivodeship: VoivodeshipJSON) => {
   });
 }
 
+const calculateMedian = (voivodeship: VoivodeshipJSON) => {
+  voivodeshipsMedians.push({
+    population: (voivodeship.population[14] + voivodeship.population[15]) / 2,
+    internalMigration: (voivodeship.internalMigration[14] + voivodeship.internalMigration[15]) / 2,
+    externalMigration: (voivodeship.externalMigration[14] + voivodeship.externalMigration[15]) / 2,
+    births: (voivodeship.births[14] + voivodeship.births[15]) / 2,
+    deaths: (voivodeship.deaths[14] + voivodeship.deaths[15]) / 2,
+  });
+}
+
+const calculateMin = (voivodeship: VoivodeshipJSON) => {
+  voivodeshipsMin.push({
+    population: Math.min(...voivodeship.population),
+    internalMigration: Math.min(...voivodeship.internalMigration),
+    externalMigration: Math.min(...voivodeship.externalMigration),
+    births: Math.min(...voivodeship.births),
+    deaths: Math.min(...voivodeship.deaths)
+  });
+}
+
+const calculateMax = (voivodeship: VoivodeshipJSON) => {
+  voivodeshipsMax.push({
+    population: Math.max(...voivodeship.population),
+    internalMigration: Math.max(...voivodeship.internalMigration),
+    externalMigration: Math.max(...voivodeship.externalMigration),
+    births: Math.max(...voivodeship.births),
+    deaths: Math.max(...voivodeship.deaths)
+  });
+}
+
 onMounted(() => {
   calculatePolandAverage();
   voivodeshipsJSON.forEach(voivodeship => {
     calculateAverage(voivodeship);
-
+    calculateMedian(voivodeship);
+    calculateMin(voivodeship);
+    calculateMax(voivodeship);
     voivodeshipsData.push({
       id: voivodeship.id,
       symbol: voivodeship.symbol,
@@ -349,7 +394,9 @@ onMounted(() => {
     });
   });
   voivodeshipsStats.average = voivodeshipsAverages;
-
+  voivodeshipsStats.median = voivodeshipsMedians;
+  voivodeshipsStats.min = voivodeshipsMin;
+  voivodeshipsStats.max = voivodeshipsMax;
 });
 </script>
 <template>

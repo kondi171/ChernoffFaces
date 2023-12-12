@@ -6,14 +6,6 @@ export type ChernoffFace = {
   head: string
 }
 
-export type VoivodeAverage = {
-  population: number,
-  internalMigration: number,
-  externalMigration: number,
-  births: number,
-  deaths: number
-}
-
 export type Stats = {
   population: number,
   internalMigration: number,

@@ -2,9 +2,10 @@
 import { ref } from 'vue';
 import polandData from './../data/poland.json';
 import Card from './reusable/Card.vue';
-const index = ref(0);
-const year = ref(2031);
 
+import { useAppStore } from '../stores/app';
+
+const { year, index } = useAppStore();
 const handleAddYear = () => {
   if (year.value < 2060) {
     index.value++;
@@ -22,17 +23,17 @@ const handleSubtractYear = () => {
 <template>
   <section class="stats">
     <Card title="Migracje Wewnętrzne" content="Migracje Wewnętrzne w Polsce zawsze wynosić będą"
-      :data="polandData.internalMigration[index]" />
+      :data="polandData.internalMigration[index.value]" />
     <Card title="Migracje Zagraniczne" content="Migracje Zagraniczne w Polsce na wybrany rok prognozowane są na"
-      :data="polandData.externalMigration[index]" />
+      :data="polandData.externalMigration[index.value]" />
     <Card title="Urodzenia" content="W wybranym roku w Polsce przyjdzie na świat około"
-      :data="polandData.births[index]" />
-    <Card title="Zgony" content="W Polsce na dany rok odnotuje się około" :data="polandData.deaths[index]" />
+      :data="polandData.births[index.value]" />
+    <Card title="Zgony" content="W Polsce na dany rok odnotuje się około" :data="polandData.deaths[index.value]" />
     <Card title="Populacja" content="W Polsce populacja na podany rok prognozowna jest na "
-      :data="polandData.population[index]" />
+      :data="polandData.population[index.value]" />
     <div class="controller">
       <div class="btns">
-        <span>{{ year }}</span> <br />
+        <span>{{ year.value }}</span> <br />
         <button v-on:click="handleSubtractYear">-</button> <button v-on:click="handleAddYear">+</button>
       </div>
     </div>

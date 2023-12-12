@@ -1,10 +1,16 @@
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { ChernoffFace } from './../ts/types';
 import { PolandAverageCompartment, VoivodeshipData, VoivodeshipStats } from '../ts/interfaces';
 import { DataParts } from '../ts/enums';
 
 export const useAppStore = defineStore('app', () => {
+  const index = reactive({
+    value: 0
+  });
+  const year = reactive({
+    value: 2031
+  });
   const chernoffFace = reactive<ChernoffFace>({
     eyes: DataParts.POPULATION,
     mouth: DataParts.INTERNAL_MIGRATION,
@@ -47,6 +53,8 @@ export const useAppStore = defineStore('app', () => {
     }
   });
   return {
+    year,
+    index,
     chernoffFace,
     voivodeshipsData,
     voivodeshipsStats,
