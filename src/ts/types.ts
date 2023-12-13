@@ -19,3 +19,9 @@ export type Compartment = {
   lowerCompartment: number,
   upperCompartment: number
 }
+
+export type Dataset = {
+  backgroundColor: string[];
+  hoverBackgroundColor: string[];
+  data: number[];
+};

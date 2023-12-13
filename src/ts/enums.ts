@@ -5,3 +5,10 @@ export enum DataParts {
   BIRTHS = "Urodzenia",
   DEATHS = "Zgony"
 }
+
+export enum Stats {
+  AVERAGE = "Średnia",
+  MEDIAN = "Mediana",
+  MIN = "Minimalna",
+  MAX = "Maksymalna"
+}

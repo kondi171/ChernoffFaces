@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+
 import { DataParts } from './../../ts/enums';
 const { id, title, selected } = defineProps(['id', 'title', 'selected']);
 </script>

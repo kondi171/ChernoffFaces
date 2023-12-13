@@ -2,15 +2,33 @@ import { reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { ChernoffFace } from './../ts/types';
 import { PolandAverageCompartment, VoivodeshipData, VoivodeshipStats } from '../ts/interfaces';
-import { DataParts } from '../ts/enums';
+import { DataParts, Stats } from '../ts/enums';
 
 export const useAppStore = defineStore('app', () => {
   const index = reactive({
     value: 0
   });
+
   const year = reactive({
     value: 2031
   });
+
+  const isChartVisible = reactive({
+    value: false
+  });
+
+  const chartOptions = reactive({
+    parameter: DataParts.POPULATION,
+    function: Stats.AVERAGE
+  });
+
+  const setChartParameter = (statement: DataParts) => {
+    chartOptions.parameter = statement;
+  }
+  const setChartFunction = (statement: Stats) => {
+    chartOptions.function = statement;
+  }
+
   const chernoffFace = reactive<ChernoffFace>({
     eyes: DataParts.POPULATION,
     mouth: DataParts.INTERNAL_MIGRATION,
@@ -30,6 +48,7 @@ export const useAppStore = defineStore('app', () => {
     min: [],
     max: []
   });
+
   const polandCompartments = reactive({
     eyes: {
       lower: 0,
@@ -55,6 +74,10 @@ export const useAppStore = defineStore('app', () => {
   return {
     year,
     index,
+    isChartVisible,
+    chartOptions,
+    setChartParameter,
+    setChartFunction,
     chernoffFace,
     voivodeshipsData,
     voivodeshipsStats,

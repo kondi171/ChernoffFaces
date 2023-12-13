@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import Header from './components/Header.vue';
-import Interface from './components/Interface.vue';
+import InterfacePanel from './components/InterfacePanel.vue';
 import Map from './components/Map.vue';
 import Footer from './components/Footer.vue';
-import Panel from './components/Panel.vue';
+import DataPanel from './components/DataPanel.vue';
+import ChartWrapper from './components/ChartWrapper.vue';
+import { useAppStore } from './stores/app';
+const appStore = useAppStore();
+const { isChartVisible } = appStore;
 </script>
 
 <template>
   <Header />
   <main>
-    <Interface />
-    <Map />
-    <Panel />
+    <InterfacePanel />
+    <ChartWrapper v-if="isChartVisible.value" />
+    <Map v-else />
+    <DataPanel />
   </main>
   <Footer />
 </template>

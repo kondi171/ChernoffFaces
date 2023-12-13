@@ -79,7 +79,7 @@ section {
 
   .map-wrapper {
     margin: 0 auto;
-    width: 100%;
+    width: 700px;
     max-width: 700px;
     height: 700px;
     display: block;
