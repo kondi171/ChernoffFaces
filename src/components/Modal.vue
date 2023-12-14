@@ -1,11 +1,15 @@
 <script setup lang="ts">
 
+import { onMounted, reactive } from 'vue';
 import { useAppStore } from '../stores/app';
 import voivodeshipJSON from './../data/voivodeships.json';
 
 const { modalVisible, voivodeship, closeModal } = defineProps(['modalVisible', 'voivodeship', 'closeModal']);
 const appStore = useAppStore();
-const { voivodeshipsStats, voivodeshipsData, year, index } = appStore;
+const { voivodeshipsStats, voivodeshipQuantiles, voivodeshipsData, year, index } = appStore;
+const quantilesVisible = reactive({
+  value: false
+});
 
 const handleAddYear = () => {
   if (year.value < 2060) {
@@ -20,14 +24,23 @@ const handleSubtractYear = () => {
   }
 }
 
+onMounted(() => {
+  console.log(voivodeship);
+});
+
 </script>
 <template>
   <div class="overlay" :class="{ activeOverlay: modalVisible }">
     <div v-if="modalVisible" class="modal" :class="{ activeModal: modalVisible }">
       <h2>{{ voivodeship.name }}</h2>
       <div class="data-wrapper">
-        <div class="stats">
-          <h3>Statystyki:</h3>
+
+        <div v-if="!quantilesVisible.value" class="stats">
+          <div class="title">
+            <span>Statystyki:</span>
+            <font-awesome-icon @click="quantilesVisible.value = !quantilesVisible.value" class="change-icon"
+              icon="arrows-rotate" />
+          </div>
           <div class="demographic-data">
             <div class="row thead">
               <div class="cell info">Ikona</div>
@@ -89,6 +102,60 @@ const handleSubtractYear = () => {
             </div>
           </div>
         </div>
+
+
+        <div v-else class="stats">
+          <div class="title">
+            <span>Kwartety:</span>
+            <font-awesome-icon @click="quantilesVisible.value = !quantilesVisible.value" class="change-icon"
+              icon="arrows-rotate" />
+          </div>
+          <div class="demographic-data">
+            <div class="row thead">
+              <div class="cell info">Ikona</div>
+              <div class="cell info">Dane</div>
+              <div class="cell info">Kwartet Q1</div>
+              <div class="cell info">Kwartet Q2</div>
+              <div class="cell info">Kwartet Q3</div>
+            </div>
+            <div class="row">
+              <div class="cell data"><font-awesome-icon class="data-icon" icon="people-group" /></div>
+              <div class="cell data">Populacja</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].population.q1 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].population.q2 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].population.q3 }}</div>
+            </div>
+            <div class="row">
+              <div class="cell data"><font-awesome-icon class="data-icon" icon="suitcase-rolling" /></div>
+              <div class="cell data">Migracje Wewnętrzne</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].internalMigration.q1 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].internalMigration.q2 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].internalMigration.q3 }}</div>
+            </div>
+            <div class="row">
+              <div class="cell data"><font-awesome-icon class="data-icon" icon="cart-flatbed-suitcase" /></div>
+              <div class="cell data">Migracje Zagraniczne</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].externalMigration.q1 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].externalMigration.q2 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].externalMigration.q3 }}</div>
+            </div>
+            <div class="row">
+              <div class="cell data"><font-awesome-icon class="data-icon" icon="baby-carriage" /></div>
+              <div class="cell data">Urodzenia</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].births.q1 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].births.q2 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].births.q3 }}</div>
+            </div>
+            <div class="row">
+              <div class="cell data"><font-awesome-icon class="data-icon" icon="skull" /></div>
+              <div class="cell data">Zgony</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].deaths.q1 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].deaths.q2 }}</div>
+              <div class="cell">{{ voivodeshipQuantiles[voivodeship.id].deaths.q3 }}</div>
+            </div>
+          </div>
+        </div>
+
         <div class="chernoff-face">
           <h3>Wygenerowana Twarz Chernoffa:</h3>
           <svg class="map" id="map" viewBox="0 0 1000 950" xmlns="http://www.w3.org/2000/svg">
@@ -164,11 +231,33 @@ const handleSubtractYear = () => {
       justify-content: space-between;
 
       h3 {
+        width: 100%;
         text-align: center;
         display: block;
         padding: 2vmin;
         font-size: 3vmin;
         color: $primaryColor;
+      }
+
+      .title {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        text-align: center;
+        padding: 2vmin;
+        font-size: 3vmin;
+        color: $primaryColor;
+        font-weight: bold;
+
+        .change-icon {
+          transition-duration: .4s;
+
+          &:hover {
+            cursor: pointer;
+            transform: rotate(180deg) scale(1.2);
+            color: $secondaryColor;
+          }
+        }
       }
 
       .stats {

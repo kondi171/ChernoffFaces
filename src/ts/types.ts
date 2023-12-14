@@ -14,6 +14,12 @@ export type Stats = {
   deaths: number
 }
 
+export type Quantiles = {
+  q1: number,
+  q2: number,
+  q3: number
+}
+
 export type Compartment = {
   average: number,
   lowerCompartment: number,

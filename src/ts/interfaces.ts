@@ -1,4 +1,4 @@
-import { Compartment, Stats } from "./types";
+import { Compartment, Quantiles, Stats } from "./types";
 
 export interface VoivodeshipData {
   id: number,
@@ -18,7 +18,15 @@ export interface VoivodeshipStats {
   average: Stats[],
   median: Stats[],
   min: Stats[],
-  max: Stats[]
+  max: Stats[],
+}
+
+export interface VoivodeshipsQuantiles {
+  population: Quantiles,
+  internalMigration: Quantiles,
+  externalMigration: Quantiles,
+  births: Quantiles,
+  deaths: Quantiles
 }
 
 export interface VoivodeshipJSON {

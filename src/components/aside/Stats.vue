@@ -1,9 +1,9 @@
 <script setup lang="ts">
 
-import polandData from './../data/poland.json';
-import Card from './reusable/Card.vue';
+import polandData from './../../data/poland.json';
+import Card from './../reusable/Card.vue';
 
-import { useAppStore } from '../stores/app';
+import { useAppStore } from './../../stores/app';
 
 const { year, index } = useAppStore();
 const handleAddYear = () => {
@@ -40,7 +40,7 @@ const handleSubtractYear = () => {
   </section>
 </template>
 <style scoped lang="scss">
-@import './../assets/scss/variables.scss';
+@import './../../assets/scss/variables.scss';
 
 .stats {
   display: flex;

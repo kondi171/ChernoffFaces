@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useAppStore } from '../stores/app';
-import { DataParts, Stats } from '../ts/enums';
+import { useAppStore } from './../../stores/app';
+import { DataParts, Stats } from './../../ts/enums';
 
 const appStore = useAppStore();
 const { setChartParameter, setChartFunction } = appStore;
@@ -9,16 +9,16 @@ const handleCheckParameter = (e: MouseEvent) => {
     const clickedEl = e.target;
     const radios = document.querySelectorAll('.parameter-label');
     radios.forEach(radio => radio.classList.remove('checked'));
-    clickedEl.classList.add('checked');
-    setChartParameter(clickedEl.dataset.id);
+    clickedEl!.classList.add('checked');
+    setChartParameter(clickedEl!.dataset.id);
 }
 
 const handleCheckFunction = (e: MouseEvent) => {
     const clickedEl = e.target;
     const radios = document.querySelectorAll('.function-label');
     radios.forEach(radio => radio.classList.remove('checked'));
-    clickedEl.classList.add('checked');
-    setChartFunction(clickedEl.dataset.id);
+    clickedEl!.classList.add('checked');
+    setChartFunction(clickedEl!.dataset.id);
 }
 
 </script>
@@ -58,7 +58,7 @@ const handleCheckFunction = (e: MouseEvent) => {
     </section>
 </template>
 <style scoped lang="scss" >
-@import './../assets/scss/variables.scss';
+@import './../../assets/scss/variables.scss';
 
 .interface {
     width: 25vw;

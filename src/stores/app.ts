@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue';
 import { defineStore } from 'pinia';
 import { ChernoffFace } from './../ts/types';
-import { PolandAverageCompartment, VoivodeshipData, VoivodeshipStats } from '../ts/interfaces';
+import { VoivodeshipData, VoivodeshipStats, VoivodeshipsQuantiles } from '../ts/interfaces';
 import { DataParts, Stats } from '../ts/enums';
 
 export const useAppStore = defineStore('app', () => {
@@ -22,12 +22,8 @@ export const useAppStore = defineStore('app', () => {
     function: Stats.AVERAGE
   });
 
-  const setChartParameter = (statement: DataParts) => {
-    chartOptions.parameter = statement;
-  }
-  const setChartFunction = (statement: Stats) => {
-    chartOptions.function = statement;
-  }
+  const setChartParameter = (statement: DataParts) => { chartOptions.parameter = statement; }
+  const setChartFunction = (statement: Stats) => { chartOptions.function = statement; }
 
   const chernoffFace = reactive<ChernoffFace>({
     eyes: DataParts.POPULATION,
@@ -42,12 +38,15 @@ export const useAppStore = defineStore('app', () => {
   });
 
   const voivodeshipsData = reactive<VoivodeshipData[]>([]);
+
   const voivodeshipsStats = reactive<VoivodeshipStats>({
     average: [],
     median: [],
     min: [],
     max: []
   });
+
+  const voivodeshipQuantiles = reactive<VoivodeshipsQuantiles[]>([]);
 
   const polandCompartments = reactive({
     eyes: {
@@ -71,6 +70,7 @@ export const useAppStore = defineStore('app', () => {
       upper: 0
     }
   });
+
   return {
     year,
     index,
@@ -81,6 +81,7 @@ export const useAppStore = defineStore('app', () => {
     chernoffFace,
     voivodeshipsData,
     voivodeshipsStats,
+    voivodeshipQuantiles,
     isFacesGenerated,
     polandCompartments
   }

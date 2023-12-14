@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import Chart, { ChartItem } from 'chart.js/auto';
 import { ref, watch } from 'vue';
-import { Dataset } from '../ts/types';
-import { useAppStore } from '../stores/app';
-import { DataParts, Stats } from '../ts/enums';
+import { Dataset } from './../../ts/types';
+import { DataParts, Stats } from './../../ts/enums';
+import { useAppStore } from './../../stores/app';
+import Chart, { ChartItem } from 'chart.js/auto';
+
 const appStore = useAppStore();
 const { chartOptions } = appStore;
 
@@ -110,7 +111,7 @@ watch(chartOptions, () => {
 </template>
 
 <style scoped lang="scss">
-@import './../assets/scss/variables.scss';
+@import './../../assets/scss/variables.scss';
 
 .chart {
   width: 50vw;

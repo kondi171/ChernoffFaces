@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChartSettings from './ChartSettings.vue';
+import ChartSettings from './chart/ChartSettings.vue';
 import Interface from './Interface.vue';
 import { useAppStore } from '../stores/app';
 

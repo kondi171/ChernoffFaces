@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import Stats from './Stats.vue';
 import Legend from './Legend.vue';
-import { useAppStore } from '../stores/app';
+import { useAppStore } from './../../stores/app';
 
 const appStore = useAppStore();
 const { isFacesGenerated } = appStore;
@@ -50,7 +50,7 @@ const handleCloseInfo = () => {
 </template>
 
 <style scoped lang="scss">
-@import './../assets/scss/variables.scss';
+@import './../../assets/scss/variables.scss';
 
 .panel {
   width: 25vw;

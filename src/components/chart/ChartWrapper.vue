@@ -1,10 +1,9 @@
 <script setup lang="ts">
 
 import { onMounted, ref } from 'vue';
-import voivodeshipJSON from './../data/voivodeships.json';
-import { useAppStore } from '../stores/app';
+import { useAppStore } from './../../stores/app';
+import voivodeshipJSON from './../../data/voivodeships.json';
 import Chart from './Chart.vue';
-import Chart2 from './Chart2.vue';
 
 const appStore = useAppStore();
 const { voivodeshipsStats } = appStore;
@@ -70,7 +69,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Chart2 :voivodeshipsNames="voivodeshipsNames" :voivodeshipsDatasets="[
+  <Chart :voivodeshipsNames="voivodeshipsNames" :voivodeshipsDatasets="[
     voivodeshipsPopulationAverage,
     voivodeshipsPopulationMedian,
     voivodeshipsPopulationMin,
@@ -98,6 +97,4 @@ onMounted(() => {
   ]" />
 </template>
 
-<style scoped lang="scss">
-@import './../assets/scss/variables.scss';
-</style>
+<style scoped lang="scss"></style>

@@ -33,7 +33,7 @@ import head2 from './../assets/img/faces/head2.png';
 import head3 from './../assets/img/faces/head3.png';
 
 const appStore = useAppStore();
-const { chernoffFace, voivodeshipsData, voivodeshipsStats, isFacesGenerated, polandCompartments } = appStore;
+const { chernoffFace, voivodeshipsData, voivodeshipsStats, isFacesGenerated, polandCompartments, voivodeshipQuantiles } = appStore;
 
 const voivodeshipsAverages = reactive<Stats[]>([]);
 const voivodeshipsMedians = reactive<Stats[]>([]);
@@ -372,6 +372,48 @@ const calculateMax = (voivodeship: VoivodeshipJSON) => {
   });
 }
 
+const calculateQuantile = (voivodeship: VoivodeshipJSON) => {
+
+  const sortedPopulation = voivodeship.population.slice().sort((a, b) => a - b);
+  const sortedInternalMigration = voivodeship.internalMigration.slice().sort((a, b) => a - b);
+  const sortedExternalMigration = voivodeship.externalMigration.slice().sort((a, b) => a - b);
+  const sortedBirths = voivodeship.births.slice().sort((a, b) => a - b);
+  const sortedDeaths = voivodeship.deaths.slice().sort((a, b) => a - b);
+
+  const percentile = (data: number[], percentile: number): number => {
+    const index = Math.ceil((percentile / 100) * data.length) - 1;
+    return data[index];
+  }
+
+  voivodeshipQuantiles.push({
+    population: {
+      q1: percentile(sortedPopulation, 25),
+      q2: (voivodeship.population[14] + voivodeship.population[15]) / 2,
+      q3: percentile(sortedPopulation, 75)
+    },
+    internalMigration: {
+      q1: percentile(sortedInternalMigration, 25),
+      q2: (voivodeship.internalMigration[14] + voivodeship.internalMigration[15]) / 2,
+      q3: percentile(sortedInternalMigration, 75)
+    },
+    externalMigration: {
+      q1: percentile(sortedExternalMigration, 25),
+      q2: (voivodeship.externalMigration[14] + voivodeship.externalMigration[15]) / 2,
+      q3: percentile(sortedExternalMigration, 75)
+    },
+    births: {
+      q1: percentile(sortedBirths, 25),
+      q2: (voivodeship.births[14] + voivodeship.births[15]) / 2,
+      q3: percentile(sortedBirths, 75)
+    },
+    deaths: {
+      q1: percentile(sortedDeaths, 25),
+      q2: (voivodeship.deaths[14] + voivodeship.deaths[15]) / 2,
+      q3: percentile(sortedDeaths, 75)
+    },
+  });
+}
+
 onMounted(() => {
   calculatePolandAverage();
   voivodeshipsJSON.forEach(voivodeship => {
@@ -379,6 +421,7 @@ onMounted(() => {
     calculateMedian(voivodeship);
     calculateMin(voivodeship);
     calculateMax(voivodeship);
+    calculateQuantile(voivodeship);
     voivodeshipsData.push({
       id: voivodeship.id,
       symbol: voivodeship.symbol,
